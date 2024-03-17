@@ -14,5 +14,9 @@
         <input type="password" id="password" name="password"><br>
         <button type="submit">Login</button>
     </form>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% endif %}
 </body>
 </html>
+
