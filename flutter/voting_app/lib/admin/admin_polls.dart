@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/poll_widget.dart';
+import 'package:voting_app/poll_management.dart';
 
 class AdminPolls extends StatefulWidget {
   const AdminPolls({super.key});
@@ -21,7 +21,7 @@ class AdminPollsState extends State<AdminPolls> {
           child: const Text('[Organization Name] Polls')
         )
       ),
-      body: const Column(children: <Widget>[
+      body:  Column(children: <Widget>[
         TextField(
           decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -29,12 +29,7 @@ class AdminPollsState extends State<AdminPolls> {
               prefixIcon: Icon(Icons.search)
           )
         ),
-        PollWidget(
-          pollID: 0, 
-          organizationName: 'Dirt Digger Inc.', 
-          pollName: 'How Much Dirt to Dig?', 
-          currentStatus: 'Ongoing'
-        )
+        PollThumbnailManager().pollFollowing()
       ])
     );
   }

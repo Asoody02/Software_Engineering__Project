@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/admin/admin_navigation_menu.dart';
+import 'package:voting_app/navigation_menu.dart';
+import 'package:voting_app/organization_info.dart';
 
 class PollResults extends StatefulWidget {
   const PollResults({super.key});
@@ -18,12 +19,15 @@ class PollResultsState extends State<PollResults> {
             color: const Color(0xFF5AC7F0), 
             child: Column(children: [
               Row(children: [
-                SizedBox(
-                  height: 57,
-                  width: 57,
-                  child: Container(
-                    color: const Color(0xFF113143),
-                    child: const Text('org pic')
+                GestureDetector(
+                  onTap: () => OrganizationInfo(), //calls PollResults()
+                  child: SizedBox(
+                    width: 57,
+                    height: 57,
+                    child: Container(
+                      color: const Color(0xFF113143), 
+                      child: const Text('org pic')
+                    )
                   )
                 ),
                 const Column(children: [

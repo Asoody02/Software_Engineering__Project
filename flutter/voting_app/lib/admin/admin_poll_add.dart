@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/admin/admin_navigation_menu.dart';
 
 class AdminPollAdd extends StatefulWidget {
   const AdminPollAdd({super.key});

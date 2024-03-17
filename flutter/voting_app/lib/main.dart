@@ -1,7 +1,9 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:voting_app/admin/admin_navigation_menu.dart';
+import 'package:voting_app/navigation_menu.dart';
+
+late bool isAdmin;
 
 void main() => runApp(const Login());
 
@@ -40,10 +42,25 @@ class LoginPage extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
+              isAdmin = false;
               Get.to(NavigationMenu());
             },
             child: const Text('Login'),
           ),
+          TextButton(
+            onPressed: () {
+              isAdmin = true;
+              Get.to(NavigationMenu());
+            }, 
+            child: Text('Admin Login')
+          ),
+          TextButton(
+            onPressed: () {
+              isAdmin = false;
+              Get.to(NavigationMenu());
+            },
+            child: Text('User Login'),
+          )
         ],
       ),
     );

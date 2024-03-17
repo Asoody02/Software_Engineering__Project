@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/navigation_menu.dart';
-import 'package:voting_app/organization_info.dart';
-class PollComments extends StatefulWidget {
-  const PollComments({super.key});
+
+class PollResults extends StatefulWidget {
+  const PollResults({super.key});
 
   @override
-  State<StatefulWidget> createState() => PollCommentsState();
+  State<StatefulWidget> createState() => PollResultsState();
 }
 
-class PollCommentsState extends State<PollComments> {
+class PollResultsState extends State<PollResults> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,21 +18,14 @@ class PollCommentsState extends State<PollComments> {
             color: const Color(0xFF5AC7F0), 
             child: Column(children: [
               Row(children: [
-                GestureDetector(
-                  onTap: () => OrganizationInfo(), //calls PollResults()
-                  child: SizedBox(
-                    width: 57,
-                    height: 57,
-                    child: Container(
-                      color: const Color(0xFF113143), 
-                      child: const Text('org pic')
-                    )
+                SizedBox(
+                  height: 57,
+                  width: 57,
+                  child: Container(
+                    color: const Color(0xFF113143),
+                    child: const Text('org pic')
                   )
                 ),
-                const Column(children: [
-                  Text('[Organization Name]'),
-                  Text('[Poll Name]')
-                ]),
                 const Column(children: [
                   Text('[Organization Name]'),
                   Text('[Poll Name]')
@@ -43,8 +36,8 @@ class PollCommentsState extends State<PollComments> {
                     icon: const Icon(Icons.close)
                   ),
                   IconButton(
-                    onPressed: () => NavigationController().navigateToScreen(3), //calls PollResults()
-                    icon: const Icon(Icons.bar_chart)
+                    onPressed: () => NavigationController().navigateToScreen(4), //calls PollComments()
+                    icon: const Icon(Icons.comment)
                   )
                 ])
               ]),

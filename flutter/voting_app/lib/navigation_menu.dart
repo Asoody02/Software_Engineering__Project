@@ -5,10 +5,21 @@ import 'package:voting_app/admin/admin_polls.dart';
 import 'package:voting_app/admin/admin_settings.dart';
 import 'package:voting_app/poll_comments.dart';
 import 'package:voting_app/poll_results.dart';
+import 'package:voting_app/user/user_search.dart';
+import 'package:voting_app/user/user_polls.dart';
+import 'package:voting_app/user/user_settings.dart';
+import 'package:voting_app/main.dart';
 
-class NavigationMenu extends StatelessWidget {
-  NavigationMenu({super.key});
+class NavigationMenu extends StatefulWidget {
+  const NavigationMenu({super.key});
+
+  @override
+  State<StatefulWidget> createState() => NavigationMenuState();
+}
+
+class NavigationMenuState extends State<NavigationMenu> {
   final controller = Get.put(NavigationController());
+  Icon middleIcon = isAdmin ? const Icon(Icons.add) : const Icon(Icons.search);
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +32,10 @@ class NavigationMenu extends StatelessWidget {
             controller.selectedIndex.value = index;
             if (controller.isNavBar) controller.currentScreenIndex.value = index;
           },
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.ballot), label: ''),
-            NavigationDestination(icon: Icon(Icons.add), label: ''),
-            NavigationDestination(icon: Icon(Icons.settings), label: '')
+          destinations: [
+            const NavigationDestination(icon: Icon(Icons.ballot), label: ''),
+            NavigationDestination(icon: middleIcon, label: ''),
+            const NavigationDestination(icon: Icon(Icons.settings), label: '')
           ],
         ),
       ),
@@ -37,8 +48,8 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   Rx<int> currentScreenIndex = 0.obs;
   bool isNavBar = true;
-  final navbarScreens = const [AdminPolls(), AdminPollAdd(), AdminSettings()];
-  final allScreens = const [AdminPolls(), AdminPollAdd(), AdminSettings(), PollResults(), PollComments()];
+  final adminScreens = const [AdminPolls(), AdminPollAdd(), AdminSettings(), PollResults(), PollComments()];
+  final userScreens = const [UserPolls(), UserSearch(), UserSettings(), PollResults(), PollComments()];
 
   navigateToScreen(int index) {
     final controller = Get.find<NavigationController>();
@@ -51,6 +62,6 @@ class NavigationController extends GetxController {
   setScreen() {
     final controller = Get.find<NavigationController>();
     if (isNavBar) isNavBar = true;
-    return controller.allScreens[controller.currentScreenIndex.value];
+    return isAdmin ? controller.adminScreens[controller.currentScreenIndex.value] : controller.userScreens[controller.currentScreenIndex.value];
   }
 }

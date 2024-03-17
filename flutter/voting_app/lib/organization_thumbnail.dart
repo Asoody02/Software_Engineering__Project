@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/admin/admin_navigation_menu.dart';
+import 'package:voting_app/navigation_menu.dart';
+import 'package:voting_app/organization_info.dart';
 
-class PollWidget extends StatefulWidget {
-  final int pollID;
+class OrganizationThumbnail extends StatefulWidget {
+  final int organizationID;
   final String organizationName;
-  final String pollName;
-  final String currentStatus;
 
-  const PollWidget({
+  const OrganizationThumbnail({
     Key? key,
-    required this.pollID,
+    required this.organizationID,
     required this.organizationName,
-    required this.pollName,
-    required this.currentStatus,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PollWidgetState();
+  State<StatefulWidget> createState() => OrganizationThumbnailState();
 }
 
-class PollWidgetState extends State<PollWidget> {
+class OrganizationThumbnailState extends State<OrganizationThumbnail> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -30,7 +27,7 @@ class PollWidgetState extends State<PollWidget> {
         child: Row(
         children: <Widget>[
           GestureDetector(
-            onTap: () => NavigationController().navigateToScreen(3), //calls PollResults()
+            onTap: () => const OrganizationInfo(), //calls PollResults()
             child: SizedBox(
               width: 57,
               height: 57,
@@ -40,11 +37,7 @@ class PollWidgetState extends State<PollWidget> {
               )
             )
           ),
-          Column(children: [
-            Text(widget.organizationName),
-            Text(widget.pollName),
-            Text('Status: ${widget.currentStatus}')
-          ]),
+          Text(widget.organizationName),
         ]),
       )
     );
