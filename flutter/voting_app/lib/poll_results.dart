@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/navigation_menu.dart';
+import 'package:voting_app/admin/admin_navigation_menu.dart';
 
 class PollResults extends StatefulWidget {
   const PollResults({super.key});
@@ -32,11 +32,11 @@ class PollResultsState extends State<PollResults> {
                 ]),
                 Column(children: [
                   IconButton(
-                    onPressed: () => NavigationMenu().goToPage(0), 
+                    onPressed: () => NavigationController().navigateToScreen(0), //calls AdminPolls()
                     icon: const Icon(Icons.close)
                   ),
                   IconButton(
-                    onPressed: () => NavigationMenu().goToPage(4), 
+                    onPressed: () => NavigationController().navigateToScreen(4), //calls PollComments()
                     icon: const Icon(Icons.comment)
                   )
                 ])

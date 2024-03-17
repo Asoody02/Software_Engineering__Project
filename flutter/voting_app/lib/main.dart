@@ -1,46 +1,50 @@
+// main.dart
 import 'package:flutter/material.dart';
-import 'package:voting_app/admin_polls.dart';
-import 'package:voting_app/navigation_menu.dart';
+import 'package:get/get.dart';
+import 'package:voting_app/admin/admin_navigation_menu.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Policy Vote',
-    initialRoute: '/',
-    routes: {
-      '/': (context) => const Login(),
-      '/adminPolls': (context) => const AdminPolls()
-    }
-  ));
-}
+void main() => runApp(const Login());
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Column(children: <Widget>[
+    return const GetMaterialApp(
+      title: 'Policy Vote',
+      home: LoginPage()
+    );
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
           const Text('Login'),
           const TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Username'
+              hintText: 'Username',
             ),
           ),
           const TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Password'
+              hintText: 'Password',
             ),
           ),
           TextButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationMenu()));
-            }, 
-            child: const Text('Login')
-          )
-        ]),
+              Get.to(NavigationMenu());
+            },
+            child: const Text('Login'),
+          ),
+        ],
       ),
     );
   }

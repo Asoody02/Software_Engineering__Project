@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/navigation_menu.dart';
-
+import 'package:voting_app/admin/admin_navigation_menu.dart';
 class PollComments extends StatefulWidget {
   const PollComments({super.key});
 
@@ -32,11 +31,11 @@ class PollCommentsState extends State<PollComments> {
                 ]),
                 Column(children: [
                   IconButton(
-                    onPressed: () => NavigationMenu().goToPage(0), 
+                    onPressed: () => NavigationController().navigateToScreen(0), //calls AdminPolls()
                     icon: const Icon(Icons.close)
                   ),
                   IconButton(
-                    onPressed: () => NavigationMenu().goToPage(3), 
+                    onPressed: () => NavigationController().navigateToScreen(3), //calls PollResults()
                     icon: const Icon(Icons.bar_chart)
                   )
                 ])

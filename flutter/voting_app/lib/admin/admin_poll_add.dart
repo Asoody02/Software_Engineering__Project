@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/navigation_menu.dart';
+import 'package:voting_app/admin/admin_navigation_menu.dart';
 
 class AdminPollAdd extends StatefulWidget {
   const AdminPollAdd({super.key});
@@ -30,9 +30,9 @@ class AdminPollAddState extends State<AdminPollAdd> {
                   Text('[Organization Name]'),
                   Text('[Poll Name]')
                 ]),
-                IconButton(
-                  onPressed: () => NavigationMenu().goToPage(0),
-                  icon: const Icon(Icons.close)
+                TextButton(
+                  onPressed: () => setState(() => {}),
+                  child: const Text('Close')
                 )
               ]),
               SizedBox(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/navigation_menu.dart';
+import 'package:voting_app/admin/admin_navigation_menu.dart';
 
 class PollWidget extends StatefulWidget {
   final int pollID;
@@ -22,13 +22,15 @@ class PollWidget extends StatefulWidget {
 class PollWidgetState extends State<PollWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 72,
-      color: const Color(0xFF5AC7F0),
-      child: Row(
+    return GestureDetector(
+      onTap: () => NavigationController().navigateToScreen(1), //calls AdminPollAdd()
+      child: Container(
+        height: 72,
+        color: const Color(0xFF5AC7F0),
+        child: Row(
         children: <Widget>[
           GestureDetector(
-            onTap: () => NavigationMenu().goToPage(2),
+            onTap: () => NavigationController().navigateToScreen(3), //calls PollResults()
             child: SizedBox(
               width: 57,
               height: 57,
@@ -39,15 +41,12 @@ class PollWidgetState extends State<PollWidget> {
             )
           ),
           Column(children: [
-              Text(widget.organizationName),
-              Text(widget.pollName),
-              Text(widget.currentStatus)
+            Text(widget.organizationName),
+            Text(widget.pollName),
+            Text('Status: ${widget.currentStatus}')
           ]),
-          IconButton(
-            onPressed:() => NavigationMenu().goToPage(4),
-            icon: const Icon(Icons.comment)
-          )
         ]),
+      )
     );
   }
 }
