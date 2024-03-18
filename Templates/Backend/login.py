@@ -1,40 +1,41 @@
 from flask import Flask, render_template, request, redirect, url_for
+from database import Database, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER
 
+db = Database(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
+db.connect()
 class LoginApp():
-    def __init__(self):
-        # Dummy user data (replace with your authentication logic)
-        self.users = {'admin': 'password'}
+    def __init__(self, database):
+        self.database = database
 
     def login(self, username, password):
-        if username in self.users and self.users[username] == password:
-            return True
+        query = "SELECT username, password FROM users WHERE username = %s;"
+        result = self.database.execute_query(query, (username,))
+        
+        if result:
+            user_username, user_password = result[0]
+            if user_password == password:
+                return True
+        
+        return False
+
+# Define a function to register login routes
+def init_login_routes(app):
+    login_backend = LoginApp(db)
+
+    @app.route('/')
+    def index():
+        return render_template('login.html')
+
+    @app.route('/login', methods=['POST'])
+    def login():
+        username = request.form['username']
+        password = request.form['password']
+
+        if login_backend.login(username, password):
+            return redirect(url_for('success'))
         else:
-            return False
-app = Flask(__name__)
+            return render_template('login.html', error='Invalid username or password')
 
-# Instantiate LoginBackend
-login_backend = LoginApp()
-
-# Define routes
-@app.route('/')
-def index():
-    return render_template('login.html')
-
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-    
-    if login_backend.login(username, password):
-        # Redirect to a success page or dashboard
-        return redirect(url_for('success'))
-    else:
-        # Render login page with an error message
-        return render_template('login.html', error='Invalid username or password')
-
-@app.route('/success')
-def success():
-    return 'Login Successful!'
-    
-
-
+    @app.route('/success')
+    def success():
+        return 'Login Successful!'

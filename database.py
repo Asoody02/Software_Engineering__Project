@@ -24,17 +24,21 @@ class Database:
         except psycopg2.Error as e:
             print("Error connecting to the database:", e)
 
-    def execute_query(self, query):
-        if self.cur:
-            try:
-                self.cur.execute(query)
-                return self.cur.fetchall()
-            except psycopg2.Error as e:
-                print("Error executing query:", e)
-                return None
-        else:
-            print("Database connection is not established.")
+    def execute_query(self, query, params=None):
+        if not self.conn:
+            print("Connection not established.")
             return None
+        with self.conn.cursor() as cur:
+            try:
+                cur.execute(query, params)
+                result = cur.fetchone()  # Since we're using RETURNING in the INSERT statement
+                self.conn.commit()
+                print("Query Result:", result)  # Debug: print or log the result to ensure it's fetched correctly
+                return result
+            except psycopg2.Error as e:
+                self.conn.rollback()
+                print("Query Execution Error:", e)
+                return None
 
     def close(self):
         if self.cur:
