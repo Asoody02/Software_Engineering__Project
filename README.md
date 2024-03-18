@@ -10,3 +10,5 @@
 ## Done: section 1-6
 
 # Sprint 3
+## Doing
+## Done: App Prototype and Sections 1-10
