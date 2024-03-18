@@ -11,15 +11,25 @@ db = Database(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
 # Define a route and its associated view function
 @app.route('/')
 def hello():
-    db.connect()
+    try:
+        # Connect to the database
+        db.connect()
 
-    # Example: execute a SELECT query
-    rows = db.execute_query('SELECT * FROM admins_users')
+        # Execute a basic query to test the connection
+        rows = db.execute_query('SELECT * FROM users')
 
-    # Close the database connection
-    db.close()
+        # Close the database connection
+        db.close()
 
-    return str(rows)
+        # Check if the query returned a result
+        if rows and len(rows) > 0 and rows[0][0] == 1:
+            return 'Database connection test successful!'
+        else:
+            return 'Database connection test failed: no rows returned or unexpected result.'
+    except Exception as e:
+        # Log any errors that occur during database connection
+        return f'Database connection test failed: {str(e)}'
+
 
 # Run the Flask application
 if __name__ == '__main__':
