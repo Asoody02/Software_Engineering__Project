@@ -24,10 +24,10 @@ class Database:
         except psycopg2.Error as e:
             print("Error connecting to the database:", e)
 
-    def execute_query(self, query):
+    def execute_query(self, query, params = None):
         if self.cur:
             try:
-                self.cur.execute(query)
+                self.cur.execute(query, params)
                 return self.cur.fetchall()
             except psycopg2.Error as e:
                 print("Error executing query:", e)
@@ -42,9 +42,9 @@ class Database:
         if self.conn:
             self.conn.close()
     # Database configuration
-DB_NAME = 'policyvote'
+DB_NAME = 'postgres'
 DB_USER = 'postgres'
-DB_PASSWORD = ''
+DB_PASSWORD = 'link18266'
 DB_HOST = 'localhost'
 DB_PORT = '5433'
 
