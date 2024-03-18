@@ -19,7 +19,7 @@ class NavigationMenu extends StatefulWidget {
 
 class NavigationMenuState extends State<NavigationMenu> {
   final controller = Get.put(NavigationController());
-  Icon middleIcon = isAdmin ? const Icon(Icons.add) : const Icon(Icons.search);
+  Icon middleIcon = isAdmin ? const Icon(Icons.add, color: Colors.white) : const Icon(Icons.search, color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +27,17 @@ class NavigationMenuState extends State<NavigationMenu> {
       bottomNavigationBar: Obx(
         () => NavigationBar(
           backgroundColor: const Color(0xFF5AC7F0),
+          indicatorColor: const Color(0xFF113143),
+          indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           selectedIndex: controller.selectedIndex.value,
           onDestinationSelected: (index) {
             controller.selectedIndex.value = index;
             if (controller.isNavBar) controller.currentScreenIndex.value = index;
           },
           destinations: [
-            const NavigationDestination(icon: Icon(Icons.ballot), label: ''),
+            const NavigationDestination(icon: Icon(Icons.ballot, color: Colors.white), label: ''),
             NavigationDestination(icon: middleIcon, label: ''),
-            const NavigationDestination(icon: Icon(Icons.settings), label: '')
+            const NavigationDestination(icon: Icon(Icons.settings, color: Colors.white), label: '')
           ],
         ),
       ),
@@ -55,8 +57,8 @@ class NavigationController extends GetxController {
     final controller = Get.find<NavigationController>();
     controller.currentScreenIndex.value = index;
 
-    if (index > 2) isNavBar = false;
-    else isNavBar = true;
+    if (index > 2) {isNavBar = false;}
+    else {isNavBar = true;}
   }
 
   setScreen() {

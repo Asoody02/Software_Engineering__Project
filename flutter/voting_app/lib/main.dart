@@ -27,40 +27,81 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          const Text('Login'),
-          const TextField(
+          const Padding(padding: EdgeInsets.symmetric(vertical: 15), child: Text(
+            'Policy Vote Login',
+            style: TextStyle(
+              color: Color(0xFF5AC7F0),
+              fontSize: 20,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w700,
+            )
+          )),
+          const Padding(padding: EdgeInsets.all(7.5), child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Username',
-            ),
-          ),
-          const TextField(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
+                hintText: 'Username',
+            )
+          )),
+          const Padding(padding: EdgeInsets.all(7.5), child: TextField(
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Password',
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
+                hintText: 'Password',
+            )
+          )),
+          Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))
             ),
-          ),
-          TextButton(
             onPressed: () {
               isAdmin = false;
-              Get.to(NavigationMenu());
+              Get.to(const NavigationMenu());
             },
-            child: const Text('Login'),
-          ),
-          TextButton(
+            child: const Text(
+              'Login', 
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+              )
+            ),
+          )),
+          Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))
+            ),
             onPressed: () {
               isAdmin = true;
-              Get.to(NavigationMenu());
-            }, 
-            child: Text('Admin Login')
-          ),
-          TextButton(
+              Get.to(const NavigationMenu());
+            },
+            child: const Text(
+              'Admin Login', 
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+              )
+            ),
+          )),
+          Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))
+            ),
             onPressed: () {
               isAdmin = false;
-              Get.to(NavigationMenu());
+              Get.to(const NavigationMenu());
             },
-            child: Text('User Login'),
-          )
+            child: const Text(
+              'User Login', 
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+              )
+            ),
+          )),
         ],
       ),
     );

@@ -17,31 +17,49 @@ class AdminPollAddState extends State<AdminPollAdd> {
             color: const Color(0xFF5AC7F0), 
             child: Column(children: [
               Row(children: [
-                SizedBox(
-                  height: 57,
+                Padding(padding: const EdgeInsets.all(12), child: Container(
                   width: 57,
-                  child: Container(
-                    color: const Color(0xFF113143),
-                    child: const Text('org pic')
-                  )
+                  height: 57,
+                  decoration: const BoxDecoration(
+                    color:  Color(0xFF113143), 
+                    borderRadius: BorderRadius.all(Radius.circular(8))
+                  ),
+                  child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
+                )),
+                const Column(
+                  mainAxisAlignment: MainAxisAlignment.center, 
+                  crossAxisAlignment: CrossAxisAlignment.start, 
+                  children: [
+                    Text(
+                      'Dirt Diggin Inc.', 
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      'Enter Poll Name...',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    )
+                  ]
                 ),
-                const Column(children: [
-                  Text('[Organization Name]'),
-                  Text('[Poll Name]')
-                ]),
-                TextButton(
-                  onPressed: () => setState(() => {}),
-                  child: const Text('Close')
-                )
               ]),
-              SizedBox(
-                height: 87,
+              Padding(padding: const EdgeInsets.only(left: 12, right: 12), child: Container(
                 width: 336,
-                child: Container(
+                height: 87,
+                decoration: ShapeDecoration(
                   color: const Color(0xFFC7E7F3),
-                  child: const Text('poll description')
-                )
-              )
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                child: const Padding(padding: EdgeInsets.only(left: 11.77, top: 6), child: Text('Enter poll description...', style: TextStyle(color: Color(0xFF113143))))
+              ))
             ]),
           )
       )
