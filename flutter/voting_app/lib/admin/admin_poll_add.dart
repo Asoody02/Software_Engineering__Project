@@ -12,7 +12,7 @@ class AdminPollAddState extends State<AdminPollAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-          height: 180,
+          height: 192,
           child: Container(
             color: const Color(0xFF5AC7F0), 
             child: Column(children: [
@@ -39,20 +39,23 @@ class AdminPollAddState extends State<AdminPollAdd> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    Text(
-                      'Enter Poll Name...',
+                    SizedBox(width: 336, child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Enter Poll Name...',
+                        prefixIcon: Icon(Icons.edit, color: Color(0xFF113143),)
+                      ),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700,
                       ),
-                    )
+                    ))
                   ]
                 ),
               ]),
-              Padding(padding: const EdgeInsets.only(left: 12, right: 12), child: Container(
-                width: 336,
+              Padding(padding: const EdgeInsets.all(12), child: Container(
+                width: double.maxFinite,
                 height: 87,
                 decoration: ShapeDecoration(
                   color: const Color(0xFFC7E7F3),
