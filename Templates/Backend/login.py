@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from database import Database, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER
 
 db = Database(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
@@ -12,7 +12,7 @@ class LoginApp():
         result = self.database.execute_query(query, (username,))
         
         if result:
-            user_username, user_password = result[0]
+            user_username, user_password = result
             if user_password == password:
                 return True
         
@@ -26,16 +26,20 @@ def init_login_routes(app):
     def index():
         return render_template('login.html')
 
-    @app.route('/login', methods=['POST'])
+    @app.route('/api/login', methods=['POST'])
     def login():
-        username = request.form['username']
-        password = request.form['password']
+        data = request.json
+    
+    # Check if 'username' and 'password' keys are present in the JSON data
+        if 'username' in data and 'password' in data:
+            username = data['username']
+            password = data['password']
 
         if login_backend.login(username, password):
-            return redirect(url_for('success'))
+            return jsonify({"success": True})
         else:
-            return render_template('login.html', error='Invalid username or password')
+            return jsonify({"success": False, "error": "Invalid username or password"}), 401
 
-    @app.route('/success')
-    def success():
-        return 'Login Successful!'
+    # @app.route('/success')
+    # def success():
+    #     return 'Login Successful!'

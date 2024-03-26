@@ -21,6 +21,8 @@ class NavigationMenuState extends State<NavigationMenu> {
   final controller = Get.put(NavigationController());
   Icon middleIcon = isAdmin ? const Icon(Icons.add) : const Icon(Icons.search);
 
+  static var isAdmin;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +52,8 @@ class NavigationController extends GetxController {
   bool isNavBar = true;
   final adminScreens = const [AdminPolls(), AdminPollAdd(), AdminSettings(), PollResults(), PollComments()];
   final userScreens = const [UserPolls(), UserSearch(), UserSettings(), PollResults(), PollComments()];
+
+  var isAdmin;
 
   navigateToScreen(int index) {
     final controller = Get.find<NavigationController>();
