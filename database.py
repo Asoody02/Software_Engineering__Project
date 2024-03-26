@@ -46,7 +46,7 @@ class Database:
         if self.conn:
             self.conn.close()
     # Database configuration
-DB_NAME = 'policyvote'
+DB_NAME = 'PolicyVote'
 DB_USER = 'postgres'
 DB_PASSWORD = 'SEfall2024'
 DB_HOST = 'SE-Spring2024.cn4yqk6gkwp5.us-east-2.rds.amazonaws.com'
