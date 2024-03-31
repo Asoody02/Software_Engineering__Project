@@ -41,7 +41,7 @@ class NavigationMenuState extends State<NavigationMenu> {
           ],
         ),
       ),
-      body: Obx(() => controller.setScreen()),
+      body: Obx(() => controller._setScreen()),
     );
   }
 }
@@ -50,20 +50,21 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   Rx<int> currentScreenIndex = 0.obs;
   bool isNavBar = true;
-  final adminScreens = const [AdminPolls(), AdminPollAdd(), AdminSettings(), PollResults(), PollComments()];
+  final adminScreens = [const AdminPolls(), AdminPollAdd(), const AdminSettings(), const PollResults(), const PollComments()];
   final userScreens = const [UserPolls(), UserSearch(), UserSettings(), PollResults(), PollComments()];
 
   navigateToScreen(int index) {
     final controller = Get.find<NavigationController>();
     controller.currentScreenIndex.value = index;
+    controller.selectedIndex.value = index;
 
     if (index > 2) {isNavBar = false;}
     else {isNavBar = true;}
   }
 
-  setScreen() {
+  _setScreen() {
     final controller = Get.find<NavigationController>();
-    if (isNavBar) isNavBar = true;
+    if (!isNavBar) isNavBar = true;
     return isAdmin ? controller.adminScreens[controller.currentScreenIndex.value] : controller.userScreens[controller.currentScreenIndex.value];
   }
 }

@@ -23,8 +23,9 @@ class PollThumbnail extends StatefulWidget {
 class PollThumbnailState extends State<PollThumbnail> {
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(top: 7.5, left: 7.5, right: 7.5), child: GestureDetector(
-      onTap: () => NavigationController().navigateToScreen(0), //calls AdminPollAdd()
+    return Padding(padding: const EdgeInsets.only(top: 7.5, left: 15, right: 15), child: GestureDetector(
+      //navigates to poll voting/results page when any part of the poll thumbnail is tapped (other than org pfp)
+      onTap: () => NavigationController().navigateToScreen(0),
       child: Container(
         width: 313,
         height: 72,
@@ -34,7 +35,8 @@ class PollThumbnailState extends State<PollThumbnail> {
         ),
         child: Row(children: <Widget>[
           GestureDetector(
-            onTap: () => const OrganizationInfo(), //calls PollResults()
+            //opens organization info popup when organization profile picture is tapped
+            onTap: () => const OrganizationInfo(),
             child: Padding(padding: const EdgeInsets.all(7.5), child: Container(
               width: 57,
               height: 57,
@@ -76,7 +78,7 @@ class PollThumbnailState extends State<PollThumbnail> {
                   fontWeight: FontWeight.w400,
                 )
               )
-           ]
+            ]
           ),
         ]),
       )

@@ -11,16 +11,16 @@ class UserSearch extends StatefulWidget {
 class UserSearchState extends State<UserSearch> {
   late List<bool> _selections;
 
-  @override
-  void initState() {
-    super.initState();
-    _selections = List.generate(2, (index) => index == 0);
-  }
-
   void _updateSelection(int index) {
     setState(() {
       _selections = List.generate(2, (i) => i == index);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selections = List.generate(2, (index) => index == 0);
   }
 
   @override
@@ -61,7 +61,7 @@ class UserSearchState extends State<UserSearch> {
             ]
           )
         )),
-        const Padding(padding: EdgeInsets.all(7.5), child: TextField(
+        const Padding(padding: EdgeInsets.all(12), child: TextField(
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
               hintText: 'Search...',

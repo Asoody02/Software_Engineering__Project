@@ -27,7 +27,14 @@ class UserPollsState extends State<UserPolls> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: <Widget>[
-        Padding(padding: const EdgeInsets.only(top: 15), child: Container( 
+        const Padding(padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15), child: TextField(
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
+              hintText: 'Enter Poll Code...',
+              suffixIcon: Icon(Icons.add, color: Color(0xFF113143))
+          )
+        )),
+        Container( 
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: const Color(0xFFEBEBEB)
@@ -60,19 +67,12 @@ class UserPollsState extends State<UserPolls> {
               ))
             ]
           )
-        )),
-        const Padding(padding: EdgeInsets.all(7.5), child: TextField(
+        ),
+        const Padding(padding: EdgeInsets.all(12), child: TextField(
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
               hintText: 'Search...',
               prefixIcon: Icon(Icons.search, color: Color(0xFF113143),)
-          )
-        )),
-        const Padding(padding: EdgeInsets.all(7.5), child: TextField(
-          decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
-              hintText: 'Enter Poll Code...',
-              suffixIcon: Icon(Icons.add, color: Color(0xFF113143))
           )
         )),
         PollThumbnailManager().pollFollowing()

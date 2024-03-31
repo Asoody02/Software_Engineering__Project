@@ -1,8 +1,8 @@
-// main.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voting_app/navigation_menu.dart';
 
+//global variables
 late bool isAdmin;
 
 void main() => runApp(const Login());
@@ -36,13 +36,13 @@ class LoginPage extends StatelessWidget {
               fontWeight: FontWeight.w700,
             )
           )),
-          const Padding(padding: EdgeInsets.all(7.5), child: TextField(
+          const Padding(padding: EdgeInsets.only(top: 7.5, left: 12, right: 12), child: TextField(
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
                 hintText: 'Username',
             )
           )),
-          const Padding(padding: EdgeInsets.all(7.5), child: TextField(
+          const Padding(padding: EdgeInsets.only(top: 7.5, bottom: 12, left: 12, right: 12), child: TextField(
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
                 hintText: 'Password',
@@ -66,6 +66,8 @@ class LoginPage extends StatelessWidget {
               )
             ),
           )),
+
+          //below are the admin and user login buttons ONLY FOR DEBUGGING PLEASE DELETE AFTER PROPER LOGIN IMPLEMENTATION
           Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))

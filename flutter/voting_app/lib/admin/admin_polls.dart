@@ -29,7 +29,7 @@ class AdminPollsState extends State<AdminPolls> {
         )
       ),
       body: Column(children: <Widget>[
-        const Padding(padding: EdgeInsets.all(7.5), child: TextField(
+        const Padding(padding: EdgeInsets.all(12), child: TextField(
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
               hintText: 'Search...',
