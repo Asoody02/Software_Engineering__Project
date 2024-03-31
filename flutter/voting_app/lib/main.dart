@@ -4,14 +4,25 @@ import 'package:get/get.dart';
 import 'package:voting_app/navigation_menu.dart';
 import 'package:http/http.dart' as http;
 
-void main() => runApp(
-  GetMaterialApp( // Use GetMaterialApp for GetX features
-    home: LoginPage(),
-  ),
-);
+//global variables
+late bool isAdmin;
+
+void main() => runApp(const Login());
+
+class Login extends StatelessWidget {
+  const Login({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: 'Policy Vote',
+      home: LoginPage()
+    );
+  }
+}
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage({super.key});
 
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -39,36 +50,84 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('Login'),
-            TextField(
-              controller: usernameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+      body: Column(
+        children: <Widget>[
+          const Padding(padding: EdgeInsets.symmetric(vertical: 15), child: Text(
+            'Policy Vote Login',
+            style: TextStyle(
+              color: Color(0xFF5AC7F0),
+              fontSize: 20,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w700,
+            )
+          )),
+          const Padding(padding: EdgeInsets.only(top: 7.5, left: 12, right: 12), child: TextField(
+            decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
                 hintText: 'Username',
-              ),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+            )
+          )),
+          const Padding(padding: EdgeInsets.only(top: 7.5, bottom: 12, left: 12, right: 12), child: TextField(
+            decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
                 hintText: 'Password',
-              ),
-              obscureText: true,
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => login(usernameController.text, passwordController.text),
-              child: const Text('Login'),
+            obscureText: true
+          )),
+          Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))
             ),
-          ],
-        ),
+            onPressed: () => login(usernameController.text, passwordController.text),
+            child: const Text(
+              'Login', 
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+              )
+            ),
+          )),
+
+          //below are the admin and user login buttons ONLY FOR DEBUGGING PLEASE DELETE AFTER PROPER LOGIN IMPLEMENTATION
+          Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))
+            ),
+            onPressed: () {
+              isAdmin = true;
+              Get.to(const NavigationMenu());
+            },
+            child: const Text(
+              'Admin Login', 
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+              )
+            ),
+          )),
+          Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))
+            ),
+            onPressed: () {
+              isAdmin = false;
+              Get.to(const NavigationMenu());
+            },
+            child: const Text(
+              'User Login', 
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+              )
+            ),
+          )),
+        ],
       ),
     );
   }

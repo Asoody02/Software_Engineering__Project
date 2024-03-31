@@ -3,6 +3,9 @@ import 'package:voting_app/organization_thumbnail.dart';
 import 'package:voting_app/poll_thumbnail.dart';
 
 class PollThumbnailManager {
+  /*The following functions only exist for testing purposes, which is why they're hardcoded in. 
+  Feel free though to use them as a base plate for the final functions.*/
+
   pollFollowing() {
     return Expanded(
       child: ListView(
@@ -24,45 +27,11 @@ class PollThumbnailManager {
     );
   }
 
-    pollHistory() {
-    return Expanded(
-      child: ListView(
-        children: const [
-          PollThumbnail(
-            pollID: 0, 
-            organizationName: 'Dirt Digger Inc.', 
-            pollName: 'Where Can We **LEGALLY** Dig Dirt?', 
-            currentStatus: 'Ongoing'
-          ),
-          PollThumbnail(
-            pollID: 0, 
-            organizationName: 'Dirt Digger Inc.', 
-            pollName: 'Is Dirt Digging Worth the Pay?', 
-            currentStatus: 'Completed'
-          ),
-        ],
-      )
-    );
-  }
+  pollHistory() {}
 
-    pollFollowingSearch() {
-    return Expanded(
-      child: ListView(
-        children: const [
-          OrganizationThumbnail(
-            organizationID: 0, 
-            organizationName: 'Mud Making Guild', 
-          ),
-          OrganizationThumbnail(
-            organizationID: 0, 
-            organizationName: 'Dirt Digger Inc.', 
-          ),
-        ],
-      )
-    );
-  }
+  pollFollowingSearch() {}
 
-    pollBrowseSearch() {
+  pollBrowseSearch() {
     return Expanded(
       child: ListView(
         children: const [
