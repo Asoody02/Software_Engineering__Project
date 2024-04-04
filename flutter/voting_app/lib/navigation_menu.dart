@@ -5,6 +5,7 @@ import 'package:voting_app/admin/admin_polls.dart';
 import 'package:voting_app/admin/admin_settings.dart';
 import 'package:voting_app/poll_comments.dart';
 import 'package:voting_app/poll_results.dart';
+import 'package:voting_app/user/user_poll_voting.dart';
 import 'package:voting_app/user/user_search.dart';
 import 'package:voting_app/user/user_polls.dart';
 import 'package:voting_app/user/user_settings.dart';
@@ -51,15 +52,14 @@ class NavigationController extends GetxController {
   Rx<int> currentScreenIndex = 0.obs;
   bool isNavBar = true;
   final adminScreens = [const AdminPolls(), AdminPollAdd(), const AdminSettings(), const PollResults(), const PollComments()];
-  final userScreens = const [UserPolls(), UserSearch(), UserSettings(), PollResults(), PollComments()];
+  final userScreens = [const UserPolls(), const UserSearch(), const UserSettings(), UserPollVoting(), const PollResults(), const PollComments()];
 
   navigateToScreen(int index) {
-    final controller = Get.find<NavigationController>();
-    controller.currentScreenIndex.value = index;
-    controller.selectedIndex.value = index;
-
     if (index > 2) {isNavBar = false;}
     else {isNavBar = true;}
+    final controller = Get.find<NavigationController>();
+    controller.currentScreenIndex.value = index;
+    if (isNavBar) {controller.selectedIndex.value = index;}
   }
 
   _setScreen() {

@@ -4,7 +4,7 @@ import 'package:voting_app/confirmation_alert.dart';
 import 'package:voting_app/navigation_menu.dart';
 
 class AdminPollAdd extends StatefulWidget {
-  AdminPollAdd({super.key});
+  const AdminPollAdd({super.key});
 
   @override
   State<StatefulWidget> createState() => AdminPollAddState();

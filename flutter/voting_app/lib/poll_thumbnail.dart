@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/organization_info.dart';
+import 'package:voting_app/poll.dart';
+import 'package:voting_app/main.dart';
 
 class PollThumbnail extends StatefulWidget {
-  final int pollID;
-  final String organizationName;
-  final String pollName;
-  final String currentStatus;
+  final Poll poll;
 
   const PollThumbnail({
     Key? key,
-    required this.pollID,
-    required this.organizationName,
-    required this.pollName,
-    required this.currentStatus,
+    required this.poll,
   }) : super(key: key);
 
   @override
@@ -21,11 +17,23 @@ class PollThumbnail extends StatefulWidget {
 }
 
 class PollThumbnailState extends State<PollThumbnail> {
+  _onThumbnailPress() {
+    currentPoll = widget.poll.id;
+
+    //navigates to poll results if you're an admin
+    if (isAdmin) {NavigationController().navigateToScreen(4);}
+    
+    //navigates to poll voting if you're an user and if you haven't voted
+    else if (!isAdmin && !widget.poll.haveVoted) {NavigationController().navigateToScreen(3);}
+
+    //navigates to poll results if you're an user and if you've voted
+    else if (!isAdmin && widget.poll.haveVoted) {NavigationController().navigateToScreen(4);}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(padding: const EdgeInsets.only(top: 7.5, left: 15, right: 15), child: GestureDetector(
-      //navigates to poll voting/results page when any part of the poll thumbnail is tapped (other than org pfp)
-      onTap: () => NavigationController().navigateToScreen(0),
+      onTap: () => _onThumbnailPress(),
       child: Container(
         width: 313,
         height: 72,
@@ -52,7 +60,7 @@ class PollThumbnailState extends State<PollThumbnail> {
             crossAxisAlignment: CrossAxisAlignment.start, 
             children: [
               Text(
-                widget.organizationName,
+                widget.poll.organizationName,
                 style: const TextStyle(
                   color: Color(0xFF113143),
                   fontSize: 11,
@@ -61,7 +69,7 @@ class PollThumbnailState extends State<PollThumbnail> {
                 ),
               ),
               Text(
-                widget.pollName,
+                widget.poll.name,
                 style: const TextStyle(
                   color: Color(0xFF113143),
                   fontSize: 16,
@@ -70,7 +78,7 @@ class PollThumbnailState extends State<PollThumbnail> {
                 )
               ),
               Text(
-                'Status: ${widget.currentStatus}',
+                'Status: ${widget.poll.status}',
                 style: const TextStyle(
                   color: Color(0xFF113143),
                   fontSize: 11,

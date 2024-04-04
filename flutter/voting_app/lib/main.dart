@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voting_app/navigation_menu.dart';
+import 'package:voting_app/poll.dart';
 
 //global variables
 late bool isAdmin;
+int currentPoll = 0;
+final List<Poll> debugPolls = [
+  Poll(
+    id: 0,
+    description: 'Cupiditate earum maxime qui. Recusandae delectus quo a nihil facilis corrupti doloribus assumenda. Sed vel consequuntur id quia ut molestiae porro animi.Consequatur esse harum repudiandae necessitatibus deleniti odit. Aut suscipit non aut voluptas ad omnis nostrum incidunt. Non sequi eveniet autem sed maiores et culpa. Quidem totam et quia et impedit.',
+    organizationName: 'Dirt Digger Inc.', 
+    name: 'How Much Dirt to Dig?', 
+    status: 'Ongoing',
+    questions: [['How is your day?', ['Good', 'Bad', 'meh']], ['How ugly are you?', []]]
+  ),
+  Poll(
+    id: 1,
+    description: 'description',
+    organizationName: 'Dirt Digger Inc.', 
+    name: 'When Should We Dig Dirt?', 
+    status: 'Completed',
+    questions: [['How is your day?', []], ['How ugly are you?', ['2003 icon (whatever that means)', 'pretty fucking ugly']]]
+  )
+];
 
 void main() => runApp(const Login());
 
