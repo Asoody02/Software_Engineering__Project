@@ -5,7 +5,7 @@ import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/main.dart';
 
 class PollVoting extends StatefulWidget {
-  PollVoting({super.key});
+  const PollVoting({super.key});
 
   @override
   State<StatefulWidget> createState() => PollVotingState();
@@ -24,6 +24,7 @@ class PollVotingState extends State<PollVoting> {
       /*if user taps the cancel button or taps off the popup then its closed and nothing else happens. if the user taps 
       the confirm button, the app navigates to poll results and shows a popup saying the submission was successful*/
       if (value != null && value) {
+        testPolls[currentPoll].haveVoted = true;
         NavigationController().navigateToScreen(navbarIndex: 0);
         showDialog(context: context, builder: (BuildContext context) {
           return SimpleDialog(
@@ -61,12 +62,12 @@ class PollVotingState extends State<PollVoting> {
                 ),
                 child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
               )),
-              Column(
+              Expanded(child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, 
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
                   Text(
-                    debugPolls[currentPoll].organizationName, 
+                    testPolls[currentPoll].organizationName, 
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -75,7 +76,7 @@ class PollVotingState extends State<PollVoting> {
                     ),
                   ),
                   Text(
-                    debugPolls[currentPoll].name,
+                    testPolls[currentPoll].name,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -84,7 +85,12 @@ class PollVotingState extends State<PollVoting> {
                     ),
                   )
                 ]
-              ),
+              )),
+              Padding(padding: const EdgeInsets.only(right: 12), child: IconButton(
+                //navigates to first navbar screen when close icon is tapped
+                onPressed: () => NavigationController().navigateToScreen(navbarIndex: 0),
+                icon: const Icon(Icons.close, color: Color(0xFF113143))
+              ))
             ]),
             Padding(padding: const EdgeInsets.all(12), child: Container(
               width: double.maxFinite,
@@ -94,7 +100,7 @@ class PollVotingState extends State<PollVoting> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
               child: Padding(padding: const EdgeInsets.all(12), child: SingleChildScrollView(child: Text(
-                debugPolls[currentPoll].description,
+                testPolls[currentPoll].description,
                 style: const TextStyle(color: Color(0xFF113143))
               ))))
             )
@@ -102,10 +108,10 @@ class PollVotingState extends State<PollVoting> {
         )
       ),
       Expanded(child: ListView.builder(
-          itemCount: debugPolls[currentPoll].questions.length + 1,
+          itemCount: testPolls[currentPoll].questions.length + 1,
           itemBuilder: (context, index) {
-            if (index < debugPolls[currentPoll].questions.length) {
-              return Question(questionNumber: index + 1, questionInfo: debugPolls[currentPoll].questions[index]);
+            if (index < testPolls[currentPoll].questions.length) {
+              return UnansweredQuestion(questionNumber: index + 1, questionInfo: testPolls[currentPoll].questions[index]);
             } else {
               return Padding(
                 padding: const EdgeInsets.all(12),

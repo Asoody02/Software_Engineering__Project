@@ -11,8 +11,8 @@ class PollThumbnailManager {
     return Expanded(
       child: ListView(
         children: [
-          PollThumbnail(poll: debugPolls[0]),
-          PollThumbnail(poll: debugPolls[1]),
+          PollThumbnail(poll: testPolls[0]),
+          PollThumbnail(poll: testPolls[1]),
         ],
       )
     );
@@ -20,20 +20,14 @@ class PollThumbnailManager {
 
   pollHistory() {}
 
-  pollFollowingSearch() {}
+  organizationFollowingSearch() {}
 
-  pollBrowseSearch() {
+  organizationBrowseSearch() {
     return Expanded(
       child: ListView(
-        children: const [
-          OrganizationThumbnail(
-            organizationID: 0, 
-            organizationName: 'Jolly Bean Joy Co.', 
-          ),
-          OrganizationThumbnail(
-            organizationID: 0, 
-            organizationName: 'Chocobo Wranglers LLC', 
-          ),
+        children: [
+          OrganizationThumbnail( organization: testOrganizations[0]),
+          OrganizationThumbnail( organization: testOrganizations[1]),
         ],
       ) 
     );

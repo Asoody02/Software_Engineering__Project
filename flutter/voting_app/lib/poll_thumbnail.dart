@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/navigation_menu.dart';
-import 'package:voting_app/organization_info.dart';
 import 'package:voting_app/poll.dart';
 import 'package:voting_app/main.dart';
 import 'package:voting_app/poll_results.dart';
@@ -23,41 +22,42 @@ class PollThumbnailState extends State<PollThumbnail> {
     currentPoll = widget.poll.id;
 
     //navigates to poll results if you're an admin
-    if (isAdmin) {NavigationController().navigateToScreen(screen: const PollResults());}
+    if (isAdmin || widget.poll.status == 'Completed') {NavigationController().navigateToScreen(screen: const PollResults());}
     
     //navigates to poll voting if you're an user and if you haven't voted
-    else if (!isAdmin && !widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: PollVoting());}
+    else if (!isAdmin && !widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: const PollVoting());}
 
     //navigates to poll results if you're an user and if you've voted
     else if (!isAdmin && widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: const PollResults());}
   }
 
+  _isCloseable() {
+    return isAdmin && widget.poll.status == 'Ongoing';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.only(top: 7.5, left: 15, right: 15), child: GestureDetector(
+    return Padding(padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 15), child: GestureDetector(
       onTap: () => _onThumbnailPress(),
       child: Container(
         width: 313,
-        height: 72,
+        height: 80,
         decoration: ShapeDecoration(
           color: const Color(0xFFC7E7F3),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         child: Row(children: <Widget>[
-          GestureDetector(
-            //opens organization info popup when organization profile picture is tapped
-            onTap: () => const OrganizationInfo(),
-            child: Padding(padding: const EdgeInsets.all(7.5), child: Container(
-              width: 57,
-              height: 57,
-              decoration: const BoxDecoration(
-                color:  Color(0xFF113143), 
-                borderRadius: BorderRadius.all(Radius.circular(8))
-              ),
-              child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
-            ))
+          Padding(padding: const EdgeInsets.all(7.5), child: Container(
+            width: 57,
+            height: 57,
+            decoration: const BoxDecoration(
+              color:  Color(0xFF113143), 
+              borderRadius: BorderRadius.all(Radius.circular(8))
+            ),
+            child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
+          )
           ),
-          Column(
+          Expanded(child: Column(
             mainAxisAlignment: MainAxisAlignment.center, 
             crossAxisAlignment: CrossAxisAlignment.start, 
             children: [
@@ -65,7 +65,7 @@ class PollThumbnailState extends State<PollThumbnail> {
                 widget.poll.organizationName,
                 style: const TextStyle(
                   color: Color(0xFF113143),
-                  fontSize: 11,
+                  fontSize: 14,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,
                 ),
@@ -83,13 +83,18 @@ class PollThumbnailState extends State<PollThumbnail> {
                 'Status: ${widget.poll.status}',
                 style: const TextStyle(
                   color: Color(0xFF113143),
-                  fontSize: 11,
+                  fontSize: 14,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,
                 )
               )
             ]
-          ),
+          )),
+          Visibility(visible: _isCloseable(), child: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: TextButton(
+            style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xFFFF5B5B))),
+            onPressed: () => setState(() => widget.poll.status = 'Completed'),
+            child: const Text('Close Poll', style: TextStyle(color: Colors.white, fontSize: 14)),
+          )))
         ]),
       )
     ));

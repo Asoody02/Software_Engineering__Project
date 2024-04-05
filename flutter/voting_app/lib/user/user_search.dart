@@ -68,7 +68,7 @@ class UserSearchState extends State<UserSearch> {
               prefixIcon: Icon(Icons.search, color: Color(0xFF113143),)
           )
         )),
-        PollThumbnailManager().pollBrowseSearch()
+        PollThumbnailManager().organizationBrowseSearch()
       ])
     );
   }

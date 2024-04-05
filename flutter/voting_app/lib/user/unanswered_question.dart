@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Question extends StatefulWidget {
+class UnansweredQuestion extends StatefulWidget {
   final int questionNumber;
   final List<dynamic> questionInfo; //the name and answer options
   final VoidCallback? onPressed;
 
-  const Question({
+  const UnansweredQuestion({
     Key? key,
     required this.questionNumber,
     required this.questionInfo,
@@ -13,10 +13,10 @@ class Question extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => QuestionState();
+  State<StatefulWidget> createState() => UnansweredQuestionState();
 }
 
-class QuestionState extends State<Question> {
+class UnansweredQuestionState extends State<UnansweredQuestion> {
   bool _isShortAnswer() {
     return widget.questionInfo[1].isEmpty ? true : false;
   }
