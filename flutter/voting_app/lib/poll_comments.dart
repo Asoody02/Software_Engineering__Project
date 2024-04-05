@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/organization_info.dart';
+import 'package:voting_app/poll_results.dart';
 class PollComments extends StatefulWidget {
   const PollComments({super.key});
 
@@ -40,12 +41,12 @@ class PollCommentsState extends State<PollComments> {
             Column(children: [
               IconButton(
                 //navigates to first navbar page when close icon is tapped
-                onPressed: () => NavigationController().navigateToScreen(0),
+                onPressed: () => null,
                 icon: const Icon(Icons.close)
               ),
               IconButton(
                 //navigates to poll results when the bar chart icon is tapped
-                onPressed: () => NavigationController().navigateToScreen(3),
+                onPressed: () => NavigationController().navigateToScreen(screen: const PollResults()),
                 icon: const Icon(Icons.bar_chart)
               )
             ])

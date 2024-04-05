@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/admin/poll_add_widgets/admin_question_edit.dart';
+import 'package:voting_app/admin/poll_add_widgets/question_edit.dart';
 import 'package:voting_app/confirmation_alert.dart';
 import 'package:voting_app/navigation_menu.dart';
 
@@ -43,7 +43,7 @@ class AdminPollAddState extends State<AdminPollAdd> {
       /*if user taps the cancel button or taps off the popup then its closed and nothing else happens. if the user taps 
       the confirm button, the app navigates to admin polls page and shows a popup saying the uploading was successful*/
       if (value != null && value) {
-        NavigationController().navigateToScreen(0);
+        NavigationController().navigateToScreen(navbarIndex: 0);
         showDialog(context: context, builder: (BuildContext context) {
           return SimpleDialog(
             title: Container(

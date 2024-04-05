@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 import 'package:voting_app/admin/admin_poll_add.dart';
 import 'package:voting_app/admin/admin_polls.dart';
 import 'package:voting_app/admin/admin_settings.dart';
-import 'package:voting_app/poll_comments.dart';
-import 'package:voting_app/poll_results.dart';
-import 'package:voting_app/user/user_poll_voting.dart';
 import 'package:voting_app/user/user_search.dart';
 import 'package:voting_app/user/user_polls.dart';
 import 'package:voting_app/user/user_settings.dart';
@@ -33,7 +30,7 @@ class NavigationMenuState extends State<NavigationMenu> {
           selectedIndex: controller.selectedIndex.value,
           onDestinationSelected: (index) {
             controller.selectedIndex.value = index;
-            if (controller.isNavBar) controller.currentScreenIndex.value = index;
+            controller.currentScreen.value = isAdmin ? controller.adminNavbar[index] : controller.userNavbar[index];
           },
           destinations: [
             const NavigationDestination(icon: Icon(Icons.ballot, color: Colors.white), label: ''),
@@ -42,29 +39,28 @@ class NavigationMenuState extends State<NavigationMenu> {
           ],
         ),
       ),
-      body: Obx(() => controller._setScreen()),
+      body: Obx(() => controller.currentScreen.value),
     );
   }
 }
 
 class NavigationController extends GetxController {
+  //selectedIndex represents which icon on the navbar shows as selected, while currentScreen represents which screen is actually shown
   final Rx<int> selectedIndex = 0.obs;
-  Rx<int> currentScreenIndex = 0.obs;
-  bool isNavBar = true;
-  final adminScreens = [const AdminPolls(), AdminPollAdd(), const AdminSettings(), const PollResults(), const PollComments()];
-  final userScreens = [const UserPolls(), const UserSearch(), const UserSettings(), UserPollVoting(), const PollResults(), const PollComments()];
+  final List<Widget> adminNavbar = const [AdminPolls(), AdminPollAdd(), AdminSettings()];
+  final List<Widget> userNavbar = const [UserPolls(), UserSearch(), UserSettings()];
+  final Rx<Widget> currentScreen = Rx<Widget>(isAdmin ? const AdminPolls() : const UserPolls());
 
-  navigateToScreen(int index) {
-    if (index > 2) {isNavBar = false;}
-    else {isNavBar = true;}
+  /*when calling this method:
+      if screen NOT on navbar: enter ONLY the screen parameter
+      if screen IS on navbar: enter ONLY the index for the navbar screen (use adminNavbar/userNavbar as a reference for indexes)
+  */
+  navigateToScreen({Widget? screen, int? navbarIndex}) {
     final controller = Get.find<NavigationController>();
-    controller.currentScreenIndex.value = index;
-    if (isNavBar) {controller.selectedIndex.value = index;}
-  }
-
-  _setScreen() {
-    final controller = Get.find<NavigationController>();
-    if (!isNavBar) isNavBar = true;
-    return isAdmin ? controller.adminScreens[controller.currentScreenIndex.value] : controller.userScreens[controller.currentScreenIndex.value];
+    if (screen != null) {controller.currentScreen.value = screen;}
+    else if (navbarIndex != null) {
+      controller.selectedIndex.value = navbarIndex;
+      controller.currentScreen.value = isAdmin ? controller.adminNavbar[navbarIndex] : controller.userNavbar[navbarIndex];
+    }
   }
 }

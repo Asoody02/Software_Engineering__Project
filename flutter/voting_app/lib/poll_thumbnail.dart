@@ -3,6 +3,8 @@ import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/organization_info.dart';
 import 'package:voting_app/poll.dart';
 import 'package:voting_app/main.dart';
+import 'package:voting_app/poll_results.dart';
+import 'package:voting_app/user/poll_voting.dart';
 
 class PollThumbnail extends StatefulWidget {
   final Poll poll;
@@ -21,13 +23,13 @@ class PollThumbnailState extends State<PollThumbnail> {
     currentPoll = widget.poll.id;
 
     //navigates to poll results if you're an admin
-    if (isAdmin) {NavigationController().navigateToScreen(4);}
+    if (isAdmin) {NavigationController().navigateToScreen(screen: const PollResults());}
     
     //navigates to poll voting if you're an user and if you haven't voted
-    else if (!isAdmin && !widget.poll.haveVoted) {NavigationController().navigateToScreen(3);}
+    else if (!isAdmin && !widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: PollVoting());}
 
     //navigates to poll results if you're an user and if you've voted
-    else if (!isAdmin && widget.poll.haveVoted) {NavigationController().navigateToScreen(4);}
+    else if (!isAdmin && widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: const PollResults());}
   }
 
   @override

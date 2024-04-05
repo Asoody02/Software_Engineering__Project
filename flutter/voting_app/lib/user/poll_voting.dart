@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/question.dart';
+import 'package:voting_app/user/unanswered_question.dart';
 import 'package:voting_app/confirmation_alert.dart';
 import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/main.dart';
 
-class UserPollVoting extends StatefulWidget {
-  UserPollVoting({super.key});
+class PollVoting extends StatefulWidget {
+  PollVoting({super.key});
 
   @override
-  State<StatefulWidget> createState() => UserPollVotingState();
+  State<StatefulWidget> createState() => PollVotingState();
 }
 
-class UserPollVotingState extends State<UserPollVoting> {
+class PollVotingState extends State<PollVoting> {
   //shows a confirmation alert
   void _confirmationAlert(BuildContext context) {
     showDialog(context: context, builder: (BuildContext context) {
@@ -24,7 +24,7 @@ class UserPollVotingState extends State<UserPollVoting> {
       /*if user taps the cancel button or taps off the popup then its closed and nothing else happens. if the user taps 
       the confirm button, the app navigates to poll results and shows a popup saying the submission was successful*/
       if (value != null && value) {
-        NavigationController().navigateToScreen(0);
+        NavigationController().navigateToScreen(navbarIndex: 0);
         showDialog(context: context, builder: (BuildContext context) {
           return SimpleDialog(
             title: Container(
