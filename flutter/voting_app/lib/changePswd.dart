@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/user/changePswd.dart';
+import 'package:voting_app/changePswd.dart';
 
 
 class ResetPassword extends StatefulWidget {
@@ -56,12 +56,12 @@ class ResetPasswordState extends State<ResetPassword> {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text("Yes"),
+                      content: Text("Password Change Successful"),
                     ),
                   );
                 }
               },
-              child: const Text('Validate'),
+              child: const Text('Submit'),
             ),
           ],
         ),
