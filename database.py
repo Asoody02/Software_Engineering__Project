@@ -46,10 +46,15 @@ class Database:
         if self.conn:
             self.conn.close()
     # Database configuration
-DB_NAME = 'postgres'
+# DB_NAME = 'postgres'
+# DB_USER = 'postgres'
+# DB_PASSWORD = 'SEfall2024'
+# DB_HOST = 'SE-Spring2024.cn4yqk6gkwp5.us-east-2.rds.amazonaws.com'
+# DB_PORT = '5432'
+DB_NAME = 'policyvote'
 DB_USER = 'postgres'
-DB_PASSWORD = 'SEfall2024'
-DB_HOST = 'SE-Spring2024.cn4yqk6gkwp5.us-east-2.rds.amazonaws.com'
-DB_PORT = '5432'
+DB_PASSWORD = 'Mr@osaid20021'
+DB_HOST = 'localhost'
+DB_PORT = '5433'
 
 

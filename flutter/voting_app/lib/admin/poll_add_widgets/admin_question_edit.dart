@@ -16,11 +16,28 @@ class QuestionEdit extends StatefulWidget {
 }
 
 class QuestionEditState extends State<QuestionEdit> {
+  late TextEditingController _questionController;
+  final List<TextEditingController> _optionControllers = [];
   late List<bool> _selections;
   bool _isMultipleChoiceSelected = true;
   final List<Widget> _optionTextFields = [
     const Padding(padding: EdgeInsets.only(top: 12), child: MultipleChoiceOption())
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _questionController = TextEditingController();
+    _optionControllers.add(TextEditingController());
+    _selections = List.generate(2, (index) => index == 0);
+  }
+
+  @override
+  void dispose() {
+    _questionController.dispose();
+    _optionControllers.forEach((controller) => controller.dispose());
+    super.dispose();
+  }
 
   void _updateSelection(int index) {
     setState(() {
@@ -29,24 +46,54 @@ class QuestionEditState extends State<QuestionEdit> {
     });
   }
 
-  void _addOption() {
-    final key = UniqueKey();
-    setState(() {
-      _optionTextFields.add(
-        Padding(key: key, padding: const EdgeInsets.only(top: 12), child: DeletableMultipleChoiceOption(onPressed: () {
-          setState(() {
-            _optionTextFields.removeWhere((widget) => widget.key == key);
-          });
-        }))
-      );
-    });
-  }
+void _addOption() {
+  setState(() {
+    // Create a new controller for the new option
+    final TextEditingController newController = TextEditingController();
+    // Create a unique key for the new option for identification
+    final UniqueKey key = UniqueKey();
 
-  @override
-  void initState() {
-    super.initState();
-    _selections = List.generate(2, (index) => index == 0);
+    // Add the new option widget along with its controller
+    _optionTextFields.add(
+      Padding(
+        key: key,
+        padding: const EdgeInsets.only(top: 12),
+        child: DeletableMultipleChoiceOption(
+          controller: newController, // Pass the controller to the widget
+          onPressed: () {
+            setState(() {
+              // Find the position of the widget to delete
+              final indexToRemove = _optionTextFields.indexWhere((widget) => widget.key == key);
+              if (indexToRemove != -1) {
+                // Remove the controller and widget based on index
+                _optionControllers.removeAt(indexToRemove);
+                _optionTextFields.removeAt(indexToRemove);
+              }
+            });
+          },
+        ),
+      ),
+    );
+
+    // Keep track of this controller for later form submission
+    _optionControllers.add(newController);
+  });
+}
+
+  // Method to get the question data
+  Map<String, dynamic> getQuestionData() {
+    return {
+      'question_text': _questionController.text,
+      'is_multiple_choice': _isMultipleChoiceSelected,
+      // Add additional data as needed
+    };
   }
+  
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _selections = List.generate(2, (index) => index == 0);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +194,7 @@ class QuestionEditState extends State<QuestionEdit> {
             child: Column(children: [
               Column(children: _optionTextFields),
               Padding(padding: const EdgeInsets.only(top: 12), child: TextButton(
-                onPressed: _addOption, 
+                onPressed: _addOption,
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0)),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))

@@ -30,9 +30,10 @@ class MultipleChoiceOption extends StatelessWidget {
 
 class DeletableMultipleChoiceOption extends StatelessWidget {
   final VoidCallback onPressed;
-  
+  final TextEditingController controller;
   const DeletableMultipleChoiceOption({
     Key? key,
+    required this.controller,
     required this.onPressed,
   }) : super(key: key);
 

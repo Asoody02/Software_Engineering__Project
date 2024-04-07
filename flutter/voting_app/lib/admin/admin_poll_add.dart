@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:voting_app/admin/poll_add_widgets/admin_question_edit.dart';
 import 'package:voting_app/confirmation_alert.dart';
@@ -61,14 +63,15 @@ class AdminPollAddState extends State<AdminPollAdd> {
       }
     });
   }
-
+String pollName = ''; // Variable to store poll name
+String pollDescription = ''; // Variable to store poll description
   @override
   Widget build(BuildContext context) {
-    return Column(children: [ 
+    return Column(children: [
       SizedBox(
         height: 192,
         child: Container(
-          color: const Color(0xFF5AC7F0), 
+          color: const Color(0xFF5AC7F0),
           child: Column(children: [
             Row(children: [
               Padding(padding: const EdgeInsets.all(12), child: Container(
@@ -80,12 +83,12 @@ class AdminPollAddState extends State<AdminPollAdd> {
                 ),
                 child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
               )),
-              const Column(
-                mainAxisAlignment: MainAxisAlignment.center, 
-                crossAxisAlignment: CrossAxisAlignment.start, 
+               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Dirt Diggin Inc.', 
+                    'Dirt Diggin Inc.',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -94,6 +97,9 @@ class AdminPollAddState extends State<AdminPollAdd> {
                     ),
                   ),
                   SizedBox(width: 336, child: TextField(
+                    onChanged: (value) {
+                            pollName = value;
+                          },
                     decoration: InputDecoration(
                       hintText: 'Enter poll name...',
                       prefixIcon: Icon(Icons.edit, color: Color(0xFF113143),)
@@ -115,9 +121,12 @@ class AdminPollAddState extends State<AdminPollAdd> {
                 color: const Color(0xFFC7E7F3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              child: const Padding(
+              child:  Padding(
                 padding: EdgeInsets.only(left: 10, right: 10), 
                 child: TextField(
+                  onChanged: (value) {
+                        pollDescription = value;
+                      },
                   maxLines: null,
                   decoration: InputDecoration(
                     border: InputBorder.none,
