@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voting_app/admin/admin_polls.dart';
 import 'package:voting_app/navigation_menu.dart';
 
 class OrganizationInfo extends StatefulWidget {
@@ -26,7 +27,7 @@ class _OrganizationInfoState extends State<OrganizationInfo> {
             ),
             const Text('[Organization Name]'),
             IconButton(
-              onPressed: () => NavigationController().navigateToScreen(0), //calls AdminPolls()
+              onPressed: null,
               icon: const Icon(Icons.close)
             ),
           ]),
