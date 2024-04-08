@@ -13,7 +13,7 @@ class AdminPollAdd extends StatefulWidget {
 class AdminPollAddState extends State<AdminPollAdd> {
   int questionNumber = 2;
   final List<Widget> _pollQuestions = [
-    const Padding(padding: EdgeInsets.only(top: 12), child: QuestionEdit(questionNumber: 1, onPressed: null,))
+    const QuestionEdit(questionNumber: 1, onPressed: null,)
   ];
 
   //adds a question to the _pollQuestions list and refreshes the page
@@ -93,7 +93,7 @@ class AdminPollAddState extends State<AdminPollAdd> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  SizedBox(width: 336, child: TextField(
+                  SizedBox(width: 270, child: TextField(
                     decoration: InputDecoration(
                       hintText: 'Enter poll name...',
                       prefixIcon: Icon(Icons.edit, color: Color(0xFF113143),)
@@ -107,6 +107,11 @@ class AdminPollAddState extends State<AdminPollAdd> {
                   ))
                 ]
               ),
+              Padding(padding: const EdgeInsets.only(right: 12), child: IconButton(
+                //navigates to first navbar screen when close icon is tapped
+                onPressed: () => NavigationController().navigateToScreen(navbarIndex: 0),
+                icon: const Icon(Icons.close, color: Color(0xFF113143))
+              ))
             ]),
             Padding(padding: const EdgeInsets.all(12), child: Container(
               width: double.maxFinite,
