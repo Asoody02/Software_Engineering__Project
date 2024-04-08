@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/changePswd.dart';
+import 'package:voting_app/change_password.dart';
 import 'package:voting_app/main.dart';
 
 class UserSettings extends StatefulWidget {

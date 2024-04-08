@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/admin/removeMember.dart';
 import 'package:voting_app/main.dart';
-import 'package:voting_app/change_password.dart';
 
 class AdminSettings extends StatefulWidget {
   const AdminSettings({super.key});
@@ -49,7 +48,7 @@ class UserSettingsState extends State<AdminSettings> {
             onTap: () {
               Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ResetPassword()),
+              MaterialPageRoute(builder: (context) => RemoveMember()),
               );
             },
             trailing: Icon(Icons.arrow_right_outlined),

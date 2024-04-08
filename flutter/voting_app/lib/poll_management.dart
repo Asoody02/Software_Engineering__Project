@@ -7,6 +7,9 @@ class PollThumbnailManager {
   /*The following functions only exist for testing purposes, which is why they're hardcoded in. 
   Feel free though to use them as a base plate for the final functions.*/
 
+  /*The following functions only exist for testing purposes, which is why they're hardcoded in. 
+  Feel free though to use them as a base plate for the final functions.*/
+
   pollFollowing() {
     return Expanded(
       child: ListView(

@@ -25,7 +25,7 @@ class PollThumbnailState extends State<PollThumbnail> {
     if (isAdmin || widget.poll.status == 'Completed') {NavigationController().navigateToScreen(screen: const PollResults());}
     
     //navigates to poll voting if you're an user and if you haven't voted
-    else if (!isAdmin && !widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: const PollVoting());}
+    else if (!isAdmin && !widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: PollVoting());}
 
     //navigates to poll results if you're an user and if you've voted
     else if (!isAdmin && widget.poll.haveVoted) {NavigationController().navigateToScreen(screen: const PollResults());}

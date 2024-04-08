@@ -5,6 +5,7 @@ import 'package:voting_app/poll.dart';
 import 'package:voting_app/organization.dart';
 
 //global variables
+//global variables
 late bool isAdmin;
 
 //the global variables below are ONLY for testing. please DELETE them once backend is fully integrated!!!!
@@ -142,6 +143,7 @@ class LoginPage extends StatelessWidget {
             ),
             onPressed: () {
               isAdmin = false;
+              Get.to(const NavigationMenu());
               Get.to(const NavigationMenu());
             },
             child: const Text(

@@ -4,7 +4,7 @@ import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/main.dart';
 
 class PollResults extends StatefulWidget {
-  const PollResults({super.key});
+  const PollResults({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => PollResultsState();
