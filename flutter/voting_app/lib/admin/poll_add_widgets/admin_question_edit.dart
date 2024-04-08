@@ -16,28 +16,13 @@ class QuestionEdit extends StatefulWidget {
 }
 
 class QuestionEditState extends State<QuestionEdit> {
+  late List<TextEditingController> _optionControllers = [];
   late TextEditingController _questionController;
-  final List<TextEditingController> _optionControllers = [];
   late List<bool> _selections;
   bool _isMultipleChoiceSelected = true;
   final List<Widget> _optionTextFields = [
-    const Padding(padding: EdgeInsets.only(top: 12), child: MultipleChoiceOption())
+     Padding(padding: EdgeInsets.only(top: 12), child: MultipleChoiceOption(controller: TextEditingController()))
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _questionController = TextEditingController();
-    _optionControllers.add(TextEditingController());
-    _selections = List.generate(2, (index) => index == 0);
-  }
-
-  @override
-  void dispose() {
-    _questionController.dispose();
-    _optionControllers.forEach((controller) => controller.dispose());
-    super.dispose();
-  }
 
   void _updateSelection(int index) {
     setState(() {
@@ -46,58 +31,58 @@ class QuestionEditState extends State<QuestionEdit> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _selections = List.generate(2, (index) => index == 0);
+    _questionController = TextEditingController();
+    _addOption(); // Initialize with one option
+  }
+
 void _addOption() {
   setState(() {
-    // Create a new controller for the new option
-    final TextEditingController newController = TextEditingController();
-    // Create a unique key for the new option for identification
-    final UniqueKey key = UniqueKey();
-
-    // Add the new option widget along with its controller
+    final key = UniqueKey();
     _optionTextFields.add(
       Padding(
         key: key,
         padding: const EdgeInsets.only(top: 12),
         child: DeletableMultipleChoiceOption(
-          controller: newController, // Pass the controller to the widget
+          controller: TextEditingController(),
           onPressed: () {
             setState(() {
-              // Find the position of the widget to delete
-              final indexToRemove = _optionTextFields.indexWhere((widget) => widget.key == key);
-              if (indexToRemove != -1) {
-                // Remove the controller and widget based on index
-                _optionControllers.removeAt(indexToRemove);
-                _optionTextFields.removeAt(indexToRemove);
-              }
+              _optionTextFields.removeWhere((widget) => widget.key == key);
             });
           },
         ),
       ),
     );
-
-    // Keep track of this controller for later form submission
-    _optionControllers.add(newController);
+    _optionControllers.add(TextEditingController());
   });
 }
 
-  // Method to get the question data
   Map<String, dynamic> getQuestionData() {
+    List<String> options = _optionControllers.map((controller) => controller.text).toList();
     return {
-      'question_text': _questionController.text,
-      'is_multiple_choice': _isMultipleChoiceSelected,
-      // Add additional data as needed
+      "questionText": _questionController.text,
+      "options": options,
     };
   }
-  
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _selections = List.generate(2, (index) => index == 0);
-  // }
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(key: widget.key, padding: const EdgeInsets.only(top: 12, left: 12, right: 12), child: Container(
+  void dispose() {
+    _questionController.dispose();
+    for (var controller in _optionControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+Widget build(BuildContext context) {
+  return Padding(
+    key: widget.key,
+    padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+    child: Container(
       padding: const EdgeInsets.all(20),
       width: 313,
       decoration: ShapeDecoration(
@@ -105,8 +90,8 @@ void _addOption() {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center, 
-        crossAxisAlignment: CrossAxisAlignment.start, 
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text(
@@ -116,39 +101,41 @@ void _addOption() {
                 fontSize: 16,
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.w700,
-              )
+              ),
             ),
-
-            //the delete button is only visible if it isn't the first question
             Visibility(
               visible: (widget.questionNumber != 1),
               maintainSize: false,
               maintainState: true,
-              child: Align(alignment: Alignment.topRight, child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xFFFF5B5B),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFF5B5B),
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.white),
+                    onPressed: widget.onPressed,
+                  ),
                 ),
-                child: IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.white),
-                  onPressed: widget.onPressed
-                ),
-              ))
-            )
-          ]),
-          const TextField(
-            decoration: InputDecoration(
-              hintText: 'Enter question...',
-              prefixIcon: Icon(Icons.edit, color: Color(0xFF113143), size: 20)
+              ),
             ),
-            style: TextStyle(
+          ]),
+          TextField(
+            controller: _questionController,
+            decoration: const InputDecoration(
+              hintText: 'Enter question...',
+              prefixIcon: Icon(Icons.edit, color: Color(0xFF113143), size: 20),
+            ),
+            style: const TextStyle(
               color: Color(0xFF113143),
               fontSize: 16,
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w700,
-            )
+            ),
           ),
-
+          // Toggle buttons and other UI elements remain unchanged
           Align(alignment: Alignment.center, child: 
             Padding(padding: const EdgeInsets.only(top: 25), child: Container( 
               decoration: BoxDecoration(
@@ -185,26 +172,43 @@ void _addOption() {
               )
             )
           )),
-
-          //multiple choice options are only visible if short answer toggle isn't selected
+          // Dynamically generate option fields
           Visibility(
             visible: _isMultipleChoiceSelected,
             maintainSize: false,
             maintainState: true,
-            child: Column(children: [
-              Column(children: _optionTextFields),
-              Padding(padding: const EdgeInsets.only(top: 12), child: TextButton(
-                onPressed: _addOption,
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0)),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
+            child: Column(
+              children: [
+                for (var controller in _optionControllers) // Generate option fields dynamically
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: DeletableMultipleChoiceOption(
+                      controller: controller,
+                      onPressed: () {
+                        setState(() {
+                          _optionControllers.remove(controller);
+                          controller.dispose();
+                        });
+                      },
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: TextButton(
+                    onPressed: _addOption,
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                    ),
+                    child: const Text('Add Option', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  ),
                 ),
-                child: const Text('Add Option', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))
-              ))
-            ])
-          )
-        ]
+              ],
+            ),
+          ),
+        ],
       ),
-    ));
-  }
+    ),
+  );
+}
 }

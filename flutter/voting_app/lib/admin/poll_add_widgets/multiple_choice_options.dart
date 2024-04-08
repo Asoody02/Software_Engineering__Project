@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
 class MultipleChoiceOption extends StatelessWidget {
+  final TextEditingController controller;
   const MultipleChoiceOption({
     Key? key,
+    required this.controller,
+    
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller : controller,
       decoration: InputDecoration(
         hintText: "Enter option...",
         filled: true,

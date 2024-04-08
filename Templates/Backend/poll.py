@@ -86,9 +86,6 @@ def init_poll_routes(app, db):
             
         data = request.get_json()
         organizationid = data.get('organizationid')
-        # startdate = data.get('pollstartdate')
-        # enddate = data.get('pollenddate')
-
         polltitle = data.get('polltitle')
         polldescription = data.get('polldescription')
         questions = data.get('questions', []) 
