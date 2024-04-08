@@ -23,31 +23,65 @@ class PollThumbnail extends StatefulWidget {
 class PollThumbnailState extends State<PollThumbnail> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => NavigationController().navigateToScreen(1), //calls AdminPollAdd()
+    return Padding(padding: const EdgeInsets.only(top: 7.5, left: 15, right: 15), child: GestureDetector(
+      //navigates to poll voting/results page when any part of the poll thumbnail is tapped (other than org pfp)
+      onTap: () => NavigationController().navigateToScreen(0),
       child: Container(
+        width: 313,
         height: 72,
-        color: const Color(0xFF5AC7F0),
-        child: Row(
-        children: <Widget>[
+        decoration: ShapeDecoration(
+          color: const Color(0xFFC7E7F3),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        child: Row(children: <Widget>[
           GestureDetector(
-            onTap: () => const OrganizationInfo(), //calls PollResults()
-            child: SizedBox(
+            //opens organization info popup when organization profile picture is tapped
+            onTap: () => const OrganizationInfo(),
+            child: Padding(padding: const EdgeInsets.all(7.5), child: Container(
               width: 57,
               height: 57,
-              child: Container(
-                color: const Color(0xFF113143), 
-                child: const Text('org pic')
-              )
-            )
+              decoration: const BoxDecoration(
+                color:  Color(0xFF113143), 
+                borderRadius: BorderRadius.all(Radius.circular(8))
+              ),
+              child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
+            ))
           ),
-          Column(children: [
-            Text(widget.organizationName),
-            Text(widget.pollName),
-            Text('Status: ${widget.currentStatus}')
-          ]),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center, 
+            crossAxisAlignment: CrossAxisAlignment.start, 
+            children: [
+              Text(
+                widget.organizationName,
+                style: const TextStyle(
+                  color: Color(0xFF113143),
+                  fontSize: 11,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                widget.pollName,
+                style: const TextStyle(
+                  color: Color(0xFF113143),
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                )
+              ),
+              Text(
+                'Status: ${widget.currentStatus}',
+                style: const TextStyle(
+                  color: Color(0xFF113143),
+                  fontSize: 11,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                )
+              )
+            ]
+          ),
         ]),
       )
-    );
+    ));
   }
 }
