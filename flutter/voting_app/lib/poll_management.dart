@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:voting_app/organization_thumbnail.dart';
 import 'package:voting_app/poll_thumbnail.dart';
 import 'package:postgres/postgres.dart';
+import 'package:voting_app/main.dart';
 
 class PollThumbnailManager {
+  /*The following functions only exist for testing purposes, which is why they're hardcoded in. 
+  Feel free though to use them as a base plate for the final functions.*/
+
   /*The following functions only exist for testing purposes, which is why they're hardcoded in. 
   Feel free though to use them as a base plate for the final functions.*/
   
@@ -32,6 +36,9 @@ final conn = PostgreSQLConnection(
             pollName: await conn.query('SELECT polltitle FROM polls'), 
             currentStatus: 'Completed'
           ),
+        children: [
+          PollThumbnail(poll: testPolls[0]),
+          PollThumbnail(poll: testPolls[1]),
         ],
       )
     );
@@ -39,9 +46,10 @@ final conn = PostgreSQLConnection(
 
   pollHistory() {}
 
-  pollFollowingSearch() {}
+  organizationFollowingSearch() {}
 
   pollBrowseSearch() async {
+  organizationBrowseSearch() {
     return Expanded(
       child: ListView(
         children: const [
@@ -53,6 +61,9 @@ final conn = PostgreSQLConnection(
             organizationID: await conn.query('SELECT organizationid FROM organizations'), 
             organizationName: await conn.query('SELECT organizationname FROM organizations'), 
           ),
+        children: [
+          OrganizationThumbnail( organization: testOrganizations[0]),
+          OrganizationThumbnail( organization: testOrganizations[1]),
         ],
       ) 
     );
