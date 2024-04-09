@@ -6,6 +6,8 @@ import 'package:voting_app/poll.dart';
 import 'package:voting_app/organization.dart';
 import 'package:voting_app/customTheme.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 // Global variables
 late bool isAdmin;
@@ -63,7 +65,7 @@ void main() => runApp(const Login());
 
 class Login extends StatelessWidget {
   const Login({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
