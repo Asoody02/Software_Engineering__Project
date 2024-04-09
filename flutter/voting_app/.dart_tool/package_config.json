@@ -63,7 +63,11 @@
     },
     {
       "name": "flutter_lints",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/joshu/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.2",
+=======
+      "rootUri": "file:///C:/Users/joshu/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.1",
+>>>>>>> df91d140a41a751882f58ac2652afd2836ff9087
       "packageUri": "lib/",
       "languageVersion": "3.1"
     },
@@ -248,7 +252,11 @@
       "languageVersion": "3.2"
     }
   ],
+<<<<<<< HEAD
   "generated": "2024-04-09T17:39:29.080095Z",
+=======
+  "generated": "2024-04-09T17:30:59.050932Z",
+>>>>>>> df91d140a41a751882f58ac2652afd2836ff9087
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }
