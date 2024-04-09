@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/organization_thumbnail.dart';
 import 'package:voting_app/poll_thumbnail.dart';
+import 'package:voting_app/poll_service.dart';
 
 class PollThumbnailManager {
+   late Future<List<dynamic>> polls;
   /*The following functions only exist for testing purposes, which is why they're hardcoded in. 
   Feel free though to use them as a base plate for the final functions.*/
 

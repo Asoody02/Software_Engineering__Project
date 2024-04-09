@@ -15,7 +15,7 @@ class AdminPollAdd extends StatefulWidget {
 class _AdminPollAddState extends State<AdminPollAdd> {
   final TextEditingController _pollNameController = TextEditingController();
   final TextEditingController _pollDescriptionController = TextEditingController();
-  List<GlobalKey<QuestionEditState>> _questionKeys = [];
+  final List<GlobalKey<QuestionEditState>> _questionKeys = [];
 
   int questionNumber = 1;
 
@@ -33,7 +33,7 @@ class _AdminPollAddState extends State<AdminPollAdd> {
 
   Future<void> uploadPoll() async {
     List<Map<String, dynamic>> questionsData = getAllQuestionsData();
-    final url = Uri.parse('http://http://10.0.2.2:5000/api/create_poll'); // Replace with your actual Flask API URL
+    final url = Uri.parse('http://10.0.2.2:5000/create_poll'); // Replace with your actual Flask API URL
     final headers = {"Content-Type": "application/json"};
     final body = json.encode({
       "pollname": _pollNameController.text,

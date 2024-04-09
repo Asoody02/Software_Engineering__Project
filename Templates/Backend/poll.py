@@ -9,6 +9,9 @@ class PollApp:
         self.database = database
 
     def create_poll(self, organizationid, polltitle, polldescription, questions):
+        print("poll title: ",polltitle)
+        print("questions: ",questions)
+        print("poll description:", polldescription)
         poll_query = """
             INSERT INTO polls (organizationid, polltitle, polldescription) 
             VALUES (%s, %s, %s) RETURNING pollid;
@@ -38,22 +41,16 @@ class PollApp:
             return None
     
     def get_polls(self):
-        poll_query = "SELECT pollid, organizationid, polltitle, polldescription, choices FROM polls;"
+        poll_query = """
+            SELECT pollid, organizationid, polltitle, polldescription
+            FROM polls;
+        """
         polls = self.database.execute_query(poll_query)
         return polls
     
     def get_poll_by_id(self, poll_id):
-        poll_query = "SELECT pollid, organizationid, pollstartdate, pollenddate, polltitle, polldescription, choices FROM polls WHERE pollid = %s;"
-        poll = self.database.execute_query(poll_query, (poll_id,))
-        
-        if not poll:
-            return None
-        
-        return poll[0]
-    
-    def get_poll_by_id(self, poll_id):
         poll_query = """
-            SELECT pollid, organizationid, polltitle, polldescription, choices 
+            SELECT pollid, organizationid, polltitle, polldescription 
             FROM polls WHERE pollid = %s;
         """
         poll = self.database.execute_query(poll_query, (poll_id,))
@@ -80,15 +77,17 @@ def init_poll_routes(app, db):
 
     @app.route('/create_poll', methods=['POST'])
     def create_poll():
+        print("Accessed the create_poll endpoint")
         # Ensure the received content type is application/json
         if not request.is_json:
             return jsonify({"error": "Request body must be JSON"}), 400
             
         data = request.get_json()
+        print(data)
         organizationid = data.get('organizationid')
-        polltitle = data.get('polltitle')
+        polltitle = data.get('pollname')
         polldescription = data.get('polldescription')
-        questions = data.get('questions', []) 
+        questions = data.get('questions', [])
         
         # Input validation (simple example)
         # if not all([organizationid, startdate, enddate, polltitle, polldescription]) or not choices:
