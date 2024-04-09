@@ -19,14 +19,21 @@ class RemoveMemberState extends State<RemoveMember> {
       ),
       body: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
         Text('Select Poll'),
-        DropdownButton<String>(
-          value: pollDropdownValue,
-          icon: const Icon(Icons.menu),
-          style: const TextStyle(color: Colors.black),
-          underline: Container(
-            height: 2,
-            color: Colors.white,
+        DropdownButtonFormField(
+          decoration: const InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)),
+            contentPadding:
+              EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white, width: 0.0),
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)),
           ),
+          value: pollDropdownValue,
+          icon: const Icon(Icons.arrow_drop_down),
+          style: const TextStyle(color: Colors.black),
           onChanged: (String? newValue) {
             setState(() {
               pollDropdownValue = newValue!;
@@ -48,14 +55,19 @@ class RemoveMemberState extends State<RemoveMember> {
           ],
         ),
         Text('Select User'),
-        DropdownButton<String>(
+        DropdownButtonFormField(
+          decoration: const InputDecoration(
+            enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white)),
+            contentPadding:
+              EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white, width: 0.0),
+            )),
+
           value: userDropdownValue,
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.arrow_drop_down),
           style: const TextStyle(color: Colors.black),
-          underline: Container(
-            height: 2,
-            color: Colors.white,
-          ),
           onChanged: (String? newValue) {
             setState(() {
               userDropdownValue = newValue!;
@@ -75,6 +87,9 @@ class RemoveMemberState extends State<RemoveMember> {
               child: Text('Person Three'),
             ),
           ],
+        ),
+        SizedBox(
+          height: 20,
         ),
         ElevatedButton(
           onPressed: () {

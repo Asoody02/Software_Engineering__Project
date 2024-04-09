@@ -24,7 +24,7 @@ class UserSettingsState extends State<AdminSettings> {
         children: <Widget>[
           Text('Notifications'),
           SwitchListTile(
-            title: Text('Enable  Notifications'),
+            title: Text('Enable Notifications'),
             value: _notificationEnabled,
             onChanged: (value) {
               setState(() {
@@ -38,11 +38,11 @@ class UserSettingsState extends State<AdminSettings> {
             tileColor: Colors.white,
             shape: Border(
               top: BorderSide(
-                color: const Color(0xFF113143),
+                color: Color(0xFFC7E7F3),
                 width: 1,
               ),
               bottom: BorderSide(
-                color: const Color(0xFF113143),
+                color: Color(0xFFC7E7F3),
                 width: 1,
               ),
             ),
@@ -61,11 +61,11 @@ class UserSettingsState extends State<AdminSettings> {
             tileColor: Colors.white,
             shape: Border(
               top: BorderSide(
-                color: const Color(0xFF113143),
+                color: Color(0xFFC7E7F3),
                 width: 1,
               ),
               bottom: BorderSide(
-                color: const Color(0xFF113143),
+                color: Color(0xFFC7E7F3),
                 width: 1,
               ),
             ),

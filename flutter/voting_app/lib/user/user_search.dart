@@ -27,7 +27,7 @@ class UserSearchState extends State<UserSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: <Widget>[
-        Padding(padding: const EdgeInsets.only(top: 15), child: Container( 
+        Padding(padding: const EdgeInsets.only(top: 50), child: Container( 
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: const Color(0xFFEBEBEB)
@@ -61,7 +61,7 @@ class UserSearchState extends State<UserSearch> {
             ]
           )
         )),
-        const Padding(padding: EdgeInsets.all(12), child: TextField(
+        const Padding(padding: EdgeInsets.only(top:12, bottom:0, left: 12, right:12), child: TextField(
           decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
               hintText: 'Search...',

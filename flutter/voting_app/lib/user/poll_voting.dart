@@ -48,12 +48,12 @@ class PollVotingState extends State<PollVoting> {
   Widget build(BuildContext context) {
     return Column(children: [ 
       SizedBox(
-        height: 192,
+        height: 220,
         child: Container(
           color: const Color(0xFF5AC7F0), 
           child: Column(children: [
             Row(children: [
-              Padding(padding: const EdgeInsets.all(12), child: Container(
+              Padding(padding: const EdgeInsets.only(top:40, bottom:12, left:12, right: 12), child: Container(
                 width: 57,
                 height: 57,
                 decoration: const BoxDecoration(
@@ -66,6 +66,9 @@ class PollVotingState extends State<PollVoting> {
                 mainAxisAlignment: MainAxisAlignment.center, 
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
+                  SizedBox(
+                    height: 25
+                  ),
                   Text(
                     testPolls[currentPoll].organizationName, 
                     style: const TextStyle(
