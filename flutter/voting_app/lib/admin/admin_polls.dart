@@ -18,17 +18,24 @@ class AdminPollsState extends State<AdminPolls> {
         centerTitle: true,
         title: Title(
           color: Colors.white,
-          child: const Text('[Organization Name] Polls')
+          child: const Text(
+            'Dirt Digger Inc. Polls', 
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w700,
+            )
+          )
         )
       ),
-      body:  Column(children: <Widget>[
-        TextField(
+      body: Column(children: <Widget>[
+        const Padding(padding: EdgeInsets.all(12), child: TextField(
           decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC7E7F3))),
               hintText: 'Search...',
-              prefixIcon: Icon(Icons.search)
+              prefixIcon: Icon(Icons.search, color: Color(0xFF113143))
           )
-        ),
+        )),
         PollThumbnailManager().pollFollowing()
       ])
     );
