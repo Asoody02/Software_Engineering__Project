@@ -5,6 +5,7 @@ import 'package:voting_app/main.dart';
 import 'package:voting_app/poll_results.dart';
 import 'package:voting_app/user/poll_voting.dart';
 
+
 class PollThumbnail extends StatefulWidget {
   final Poll poll;
 
