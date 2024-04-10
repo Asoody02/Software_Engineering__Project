@@ -4,6 +4,7 @@ import 'package:voting_app/poll.dart';
 import 'package:voting_app/main.dart';
 import 'package:voting_app/poll_results.dart';
 import 'package:voting_app/user/poll_voting.dart';
+import 'package:voting_app/notification.dart';
 
 class PollThumbnail extends StatefulWidget {
   final Poll poll;
@@ -109,7 +110,7 @@ class PollThumbnailState extends State<PollThumbnail> {
                     width: 50,
                     child: TextButton(
                       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xFFFF5B5B))),
-                      onPressed: () => setState(() => widget.poll.status = 'Completed'),
+                      onPressed: () { setState(() => widget.poll.status = 'Completed'); sendNotification("Poll Status", "Completed");},
                       child: Icon(Icons.close, color: Colors.white),
                     ),
                   ),

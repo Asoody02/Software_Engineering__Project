@@ -12,16 +12,14 @@ firebase_admin.initialize_app(cred)
 @app.route('/send_notification', methods=['POST'])
 def send_notification():
     data = request.get_json()
-    if 'token' not in data or 'title' not in data or 'body' not in data:
+    if 'title' not in data or 'body' not in data:
         return jsonify({'message': 'Missing token, title, or body'}), 400
     
-    token = data['token']
     title = data['title']
     body = data['body']
 
     message = messaging.Message(
         notification=messaging.Notification(title=title, body=body),
-        token=token,
     )
 
     try:
