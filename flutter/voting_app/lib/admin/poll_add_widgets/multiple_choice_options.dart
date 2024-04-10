@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MultipleChoiceOption extends StatelessWidget {
-  final TextEditingController controller;
   const MultipleChoiceOption({
     Key? key,
-    required this.controller,
-    
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller : controller,
       decoration: InputDecoration(
         hintText: "Enter option...",
         filled: true,
@@ -34,10 +30,9 @@ class MultipleChoiceOption extends StatelessWidget {
 
 class DeletableMultipleChoiceOption extends StatelessWidget {
   final VoidCallback onPressed;
-  final TextEditingController controller;
+  
   const DeletableMultipleChoiceOption({
     Key? key,
-    required this.controller,
     required this.onPressed,
   }) : super(key: key);
 

@@ -13,7 +13,7 @@ class AdminPollAdd extends StatefulWidget {
   const AdminPollAdd({super.key});
 
   @override
-  State<AdminPollAdd> createState() => _AdminPollAddState();
+  State<StatefulWidget> createState() => AdminPollAddState();
 }
 
 class AdminPollAddState extends State<AdminPollAdd> {
@@ -28,6 +28,7 @@ class AdminPollAddState extends State<AdminPollAdd> {
 
   // Adds a question to the _pollQuestions list and refreshes the page
   void _addQuestion() {
+    final key = UniqueKey();
     setState(() {
       _pollQuestions.add(
         Padding(
@@ -83,10 +84,7 @@ class AdminPollAddState extends State<AdminPollAdd> {
           }
         );
       }
-    } catch (e) {
-      // Handle network error
-      print("Error uploading poll: $e");
-    }
+    });
   }
 
   

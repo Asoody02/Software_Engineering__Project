@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/poll.dart';
 import 'package:voting_app/organization.dart';
 import 'package:voting_app/customTheme.dart';
-import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -61,16 +59,20 @@ final List<Organization> testOrganizations = [
   )
 ];
 
-void main() => runApp(const Login());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  runApp(const Login());
+}
 
 class Login extends StatelessWidget {
-  const Login({super.key});
-  
+  const Login({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: customTheme,
-    return GetMaterialApp(
       title: 'Policy Vote',
       home: const LoginPage(),
     );
@@ -78,30 +80,7 @@ class Login extends StatelessWidget {
 }
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
-
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  void login(String username, String password) async {
-    var requestBody = {'username': username, 'password': password};
-
-    // Print the JSON-encoded request body
-    var response = await http.post(
-      Uri.parse('http://10.0.2.2:5000/api/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'username': username, 'password': password}),
-    );
-
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-      var isAdmin = data['isAdmin'];
-      Get.to(() => const NavigationMenu()); // Make sure Get.to() is properly used
-    } else {
-      Get.snackbar('Login Failed', 'Invalid username or password',
-          snackPosition: SnackPosition.BOTTOM);
-    }
-  }
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -159,22 +138,6 @@ class LoginPage extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-            ),
-            obscureText: true
-          )),
-          Padding(padding: const EdgeInsets.only(top: 7), child: TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0))
-            ),
-            onPressed: () => login(usernameController.text, passwordController.text),
-            child: const Text(
-              'Login', 
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w400,
-              )
             ),
           ),
 
