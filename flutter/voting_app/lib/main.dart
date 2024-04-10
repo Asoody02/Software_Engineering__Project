@@ -7,7 +7,7 @@ import 'package:voting_app/organization.dart';
 import 'package:voting_app/customTheme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
+import 'package:voting_app/notification.dart';
 // Global variables
 late bool isAdmin;
 
@@ -63,8 +63,32 @@ final List<Organization> testOrganizations = [
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(const Login());
+}
+// ignore: use_key_in_widget_constructors
+class Noti extends StatefulWidget {
+  @override
+  Notif createState() => Notif();
+}
+
+class Notif extends State<Noti> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.subscribeToTopic('all');
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      //print("Notification received: ${message.notification?.body}");
+      // Handle the notification
+    });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
 }
 
 class Login extends StatelessWidget {
