@@ -1,13 +1,6 @@
 from flask import Flask, request, jsonify
 from firebase_admin import messaging
 from app import app
-import firebase_admin
-from firebase_admin import credentials
-
-default_app = firebase_admin.initialize_app()
-# Initialize Firebase Admin SDK
-cred = credentials.Certificate('C:\Users\joshu\OneDrive\Desktop\New folder\Software_Engineering__Project\Templates\Backend\policyvote-688dc-firebase-adminsdk-k2xtz-4de53d23cd.json')
-firebase_admin.initialize_app(cred)
 
 @app.route('/send_notification', methods=['POST'])
 def send_notification():
