@@ -63,7 +63,7 @@ final List<Organization> testOrganizations = [
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
   runApp(const Login());
 }
 // ignore: use_key_in_widget_constructors
@@ -100,7 +100,7 @@ class Login extends StatelessWidget {
     return GetMaterialApp(
       theme: customTheme,
       title: 'Policy Vote',
-      home: const SplashScreen(),
+      home: const LoginPage(),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter/rendering.dart';
 import 'package:voting_app/main.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -19,7 +18,7 @@ class SplashScreen extends StatelessWidget {
         )
       ],
     ), nextScreen: const LoginPage(),
-    backgroundColor: Color(0xFFC7E7F3),
+    backgroundColor: const Color(0xFFC7E7F3),
     splashIconSize: 400,
     );
   }
