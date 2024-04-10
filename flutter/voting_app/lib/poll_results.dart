@@ -15,12 +15,12 @@ class PollResultsState extends State<PollResults> {
   Widget build(BuildContext context) {
     return Column(children: [ 
       SizedBox(
-        height: 192,
+        height: 220,
         child: Container(
           color: const Color(0xFF5AC7F0), 
           child: Column(children: [
             Row(children: [
-              Padding(padding: const EdgeInsets.all(12), child: Container(
+              Padding(padding: const EdgeInsets.only(top:40, bottom:12, left:12, right:12), child: Container(
                 width: 57,
                 height: 57,
                 decoration: const BoxDecoration(
@@ -29,10 +29,18 @@ class PollResultsState extends State<PollResults> {
                 ),
                 child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
               )),
-              Expanded(child: Column(
+              Expanded(
+                child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, 
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
+                  Text(
+                    "\n",
+                    style: const TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize:10,
+                    ),
+                  ),
                   Text(
                     testPolls[currentPoll].organizationName, 
                     style: const TextStyle(

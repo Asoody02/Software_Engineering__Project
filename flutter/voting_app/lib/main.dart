@@ -5,6 +5,7 @@ import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/poll.dart';
 import 'package:voting_app/organization.dart';
 import 'package:voting_app/customTheme.dart';
+import 'package:voting_app/splashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:voting_app/notification.dart';
@@ -18,19 +19,19 @@ int currentOrganization = 0;
 final List<Poll> testPolls = [
   Poll(
     id: 0,
-    description: 'Cupiditate earum maxime qui. Recusandae delectus quo a nihil facilis corrupti doloribus assumenda. Sed vel consequuntur id quia ut molestiae porro animi.Consequatur esse harum repudiandae necessitatibus deleniti odit. Aut suscipit non aut voluptas ad omnis nostrum incidunt. Non sequi eveniet autem sed maiores et culpa. Quidem totam et quia et impedit.',
+    description: 'Poll to decide most suitable date for employee group training.',
     organizationName: 'Dirt Digger Inc.', 
-    name: 'How Much Dirt to Dig?', 
+    name: 'Employee Training Dates', 
     status: 'Ongoing',
-    questions: [['How is your day?', ['Good', 'Bad', 'meh']], ['How ugly are you?', []]]
+    questions: [['Have you registered for employee training?', ['Yes', 'No']], ['Have you filled out your on-site waiver?', ['Yes', 'No']]]
   ),
   Poll(
     id: 1,
-    description: 'This poll attempts to query our audience on their opinion on the industry of dirt digging. Every member of our blah blah blah digs much blah blah every blah afternoon. But thats not all!!\n\n\n\n\n\n(it is.)',
+    description: 'This poll attempts to query our employees on their opinion on the industry of dirt excavation. We want to know how to improve your experience at Dirt Digger Inc.',
     organizationName: 'Dirt Digger Inc.', 
-    name: 'When Should We Dig Dirt?', 
+    name: 'Your Opinons on Excavation', 
     status: 'Completed',
-    questions: [['How is your day?', []], ['How ugly are you?', ['2003 icon (whatever that means)', 'pretty fucking ugly']]]
+    questions: [['Have you participated in an excavation job in the past 30 days?', ['Yes', 'No']], ['If yes, was this your first excavation job?', ['Yes, it was my first time participating in an excavation', 'No, I have particpated in an excavation before','I have spectated, but not participated in an excavation']]]
   )
 ];
 
@@ -49,13 +50,13 @@ final List<Organization> testOrganizations = [
   Organization(
     id: 0, 
     name: 'Jolly Bean Joy Co.', 
-    description: 'Welcome to the Jiggly Jolly Bean Family!! Here we offer a whopping 2 DAYS annually of paid vacation! and if that sounded too good to be true its because it is!',
+    description: 'Welcome to the Jiggly Jolly Bean Family!! We strive to bring you quality jellybeans based on our famous family recipe!',
     isFollowed: true
   ),
   Organization(
     id: 1, 
     name: 'Chocobo Wranglers Inc.', 
-    description: 'this is a test description............or is it? (it is.)',
+    description: 'You lose you Chocobo, we wrangle them!',
     isFollowed: false
   )
 ];
@@ -99,7 +100,7 @@ class Login extends StatelessWidget {
     return GetMaterialApp(
       theme: customTheme,
       title: 'Policy Vote',
-      home: const LoginPage(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -42,15 +42,15 @@ class RemoveMemberState extends State<RemoveMember> {
           items: const [
             DropdownMenuItem<String>(
               value: 'one',
-              child: Text('Poll One'),
+              child: Text('Pick a Poll'),
             ),
             DropdownMenuItem<String>(
               value: 'two',
-              child: Text('Poll Two'),
+              child: Text('Employee Training Dates'),
             ),
             DropdownMenuItem<String>(
               value: 'three',
-              child: Text('Poll Three'),
+              child: Text('Your Opinions on Excavation'),
             ),
           ],
         ),
@@ -76,15 +76,23 @@ class RemoveMemberState extends State<RemoveMember> {
           items: const [
             DropdownMenuItem<String>(
               value: 'four',
-              child: Text('Person One'),
+              child: Text('Select User'),
             ),
             DropdownMenuItem<String>(
               value: 'five',
-              child: Text('Person Two'),
+              child: Text('John'),
             ),
             DropdownMenuItem<String>(
               value: 'six',
-              child: Text('Person Three'),
+              child: Text('Arthur'),
+            ),
+            DropdownMenuItem<String>(
+              value: 'seven',
+              child: Text('Dutch'),
+            ),
+            DropdownMenuItem<String>(
+              value: 'eight',
+              child: Text('Abigail'),
             ),
           ],
         ),
