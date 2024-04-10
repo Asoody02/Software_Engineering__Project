@@ -18,7 +18,7 @@ class _OrganizationInfoState extends State<OrganizationInfo> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      contentPadding: const EdgeInsets.all(20),
+      contentPadding: const EdgeInsets.all(12),
       //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       backgroundColor: const Color(0xFFC7E7F3),
       children: [
@@ -32,7 +32,7 @@ class _OrganizationInfoState extends State<OrganizationInfo> {
             ),
             child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
           )),
-          Expanded(child: Text(widget.organization.name, style: const TextStyle(color: Color(0xFF113143), fontSize: 18, fontWeight: FontWeight.w700))),
+          Expanded(child: Text(widget.organization.name, style: const TextStyle(color: Color(0xFF113143), fontSize: 17, fontWeight: FontWeight.w700))),
           Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: TextButton(
             style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(widget.organization.isFollowed ? const Color(0xFFFF5B5B) : const Color(0xFF113143))),
             onPressed: () => setState(() => widget.organization.isFollowed ? widget.organization.isFollowed = false : widget.organization.isFollowed = true),
