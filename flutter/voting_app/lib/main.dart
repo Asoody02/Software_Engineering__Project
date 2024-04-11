@@ -1,14 +1,15 @@
-import 'dart:convert';
+//import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/poll.dart';
 import 'package:voting_app/organization.dart';
 import 'package:voting_app/customTheme.dart';
-import 'package:voting_app/splashScreen.dart';
+//import 'package:voting_app/splashScreen.dart'; we can add this back in last
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:voting_app/notification.dart';
+//import 'package:voting_app/notification.dart'; this can be added in later
+
 // Global variables
 late bool isAdmin;
 
@@ -56,14 +57,20 @@ final List<Organization> testOrganizations = [
   Organization(
     id: 1, 
     name: 'Chocobo Wranglers Inc.', 
-    description: 'You lose you Chocobo, we wrangle them!',
+    description: 'You lose your Chocobo, we wrangle them!',
     isFollowed: false
   )
 ];
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp( //needed this information to make firebase not null
+    options: FirebaseOptions(
+      apiKey: "AIzaSyAwJTIj74xjjkiZrZJ5xSi-2DRXLMsJwQk", 
+      appId: "1:838527174327:android:f924bbc6f77659279f2f32", 
+      messagingSenderId: "838527174327", //project number
+      projectId: "policyvote-688dc")
+  );
   runApp(const Login());
 }
 // ignore: use_key_in_widget_constructors
@@ -80,7 +87,7 @@ class Notif extends State<Noti> {
     super.initState();
     _firebaseMessaging.subscribeToTopic('all');
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      //print("Notification received: ${message.notification?.body}");
+      print("Notification received: ${message.notification?.body}");
       // Handle the notification
     });
   }
