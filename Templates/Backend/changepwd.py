@@ -31,21 +31,18 @@ class User:
         
             return redirect(url_for('login'))
 
-        if request.method == 'POST':
-            newpwd = request.form.get('newpwd')
-            pwdconfirm = request.form.get('pwdconfirm')
+        data = request.get_json()
+        newpwd = data.get('newpwd')
+        pwdconfirm = data.get('pwdconfirm')
 
-            if not newpwd or len(newpwd) < MIN_LEN_PASSWORD:
-                message = "Password must be at least {} characters long.".format(MIN_LEN_PASSWORD)
-            elif newpwd != pwdconfirm:
-                message = "Passwords do not match."
-            else:
-                if User.change_password(username, newpwd):
-                    message = 'Password changed successfully.'
-                else:
-                    message = 'Error changing password.'
-
-            return render_template('changepwd.html', message=message)
-
+        if not newpwd or len(newpwd) < 6:
+            return jsonify({"error": "Password must be at least {} characters long.".format(6)}), 400
+        elif newpwd != pwdconfirm:
+            return jsonify({"error": "Passwords do not match."}), 400
+        else:
         
-        return render_template('changepwd.html')
+            success = User.change_password(username, newpwd)
+            if success:
+                return jsonify({"message": "Password changed successfully."}), 200
+            else:
+                return jsonify({"error": "Error changing password."}), 500
