@@ -9,7 +9,7 @@ from firebase_admin import credentials
 # Create a Flask application instance
 app = Flask(__name__)
 
-cred = credentials.Certificate('C:\Users\joshu\OneDrive\Desktop\New folder\Software_Engineering__Project\Templates\Backend\ServiceAccountKey.json.json')
+cred = credentials.Certificate('C:\\Users\\joshu\\OneDrive\\Desktop\\New folder\\Software_Engineering__Project\\Templates\\Backend\\ServiceAccountKey.json')
 firebase_admin.initialize_app(cred)
 CORS(app)
 # Register login routes with the main Flask app

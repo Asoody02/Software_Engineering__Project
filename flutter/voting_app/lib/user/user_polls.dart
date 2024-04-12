@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:voting_app/poll_management.dart';
-import 'package:voting_app/notification.dart';
+//import 'package:voting_app/notification.dart';
 
 class UserPolls extends StatefulWidget {
   const UserPolls({super.key});
@@ -51,7 +51,7 @@ class UserPollsState extends State<UserPolls> {
               fillColor: const Color(0xFF5AC7F0),
               isSelected: _selections,
               onPressed: (index) {
-                _updateSelection(index);  sendNotification("Test", "Test");
+                _updateSelection(index);
               },
               children: const [
                 Padding(

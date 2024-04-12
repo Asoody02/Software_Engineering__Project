@@ -110,7 +110,7 @@ class PollThumbnailState extends State<PollThumbnail> {
                     width: 50,
                     child: TextButton(
                       style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xFFFF5B5B))),
-                      onPressed: () { setState(() => widget.poll.status = 'Completed'); sendNotification("Poll Status", "Completed");},
+                      onPressed: () { setState(() => widget.poll.status = 'Completed');},
                       child: Icon(Icons.close, color: Colors.white),
                     ),
                   ),

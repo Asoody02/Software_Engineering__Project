@@ -8,7 +8,6 @@ import 'package:voting_app/customTheme.dart';
 //import 'package:voting_app/splashScreen.dart'; we can add this back in last
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-//import 'package:voting_app/notification.dart'; this can be added in later
 
 // Global variables
 late bool isAdmin;
@@ -78,18 +77,25 @@ class Noti extends StatefulWidget {
   @override
   Notif createState() => Notif();
 }
-
 class Notif extends State<Noti> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
+  String? _token;
   @override
   void initState() {
     super.initState();
+    _getToken();
     _firebaseMessaging.subscribeToTopic('all');
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("Notification received: ${message.notification?.body}");
       // Handle the notification
     });
+  }
+  Future<void> _getToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    setState(() {
+      _token = token;
+    });
+    print('FCM Token: $_token');
   }
   
   @override
