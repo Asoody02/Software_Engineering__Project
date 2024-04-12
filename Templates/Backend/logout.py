@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from app import app
-from Database import Database, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER
+from database import Database, DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER
 from flask import session, jsonify
 from flask import Flask, request, jsonify
 
