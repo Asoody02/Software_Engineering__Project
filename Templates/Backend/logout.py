@@ -7,7 +7,6 @@ from flask import Flask, request, jsonify
 @app.route('/logout')
 def logout():
     # Check if 'username' is actually in session before popping it to avoid KeyError
-        if 'username' in session:
-            session.pop('username', None)
+        session.clear()
     # Redirect to the login page, not the function name 'login'
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
