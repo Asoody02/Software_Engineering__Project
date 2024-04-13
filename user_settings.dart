@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/change_password.dart';
+import 'package:voting_app/user/changePswd.dart';
 import 'package:voting_app/main.dart';
 
 class UserSettings extends StatefulWidget {
@@ -23,7 +23,7 @@ class UserSettingsState extends State<UserSettings> {
         children: <Widget>[
           Text('Notifications'),
           SwitchListTile(
-            title: Text('Enable Notifications'),
+            title: Text('Enable  Notifications'),
             value: _notificationEnabled,
             onChanged: (value) {
               setState(() {
@@ -32,16 +32,16 @@ class UserSettingsState extends State<UserSettings> {
             },
           ),
           Text('Account'),
-          ListTile(
+            ListTile(
             title: const Text('Change Password'),
             tileColor: Colors.white,
             shape: Border(
               top: BorderSide(
-                color: Color(0xFFC7E7F3),
+                color: const Color(0xFF113143),
                 width: 1,
               ),
               bottom: BorderSide(
-                color: Color(0xFFC7E7F3),
+                color: const Color(0xFF113143),
                 width: 1,
               ),
             ),

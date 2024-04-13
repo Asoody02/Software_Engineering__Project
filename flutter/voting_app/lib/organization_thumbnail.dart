@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:voting_app/main.dart';
+import 'package:voting_app/organization.dart';
 import 'package:voting_app/organization_info.dart';
 
 class OrganizationThumbnail extends StatefulWidget {
-  final int organizationID;
-  final String organizationName;
+  final Organization organization;
 
   const OrganizationThumbnail({
     Key? key,
-    required this.organizationID,
-    required this.organizationName,
+    required this.organization
   }) : super(key: key);
 
   @override
@@ -20,7 +20,12 @@ class OrganizationThumbnailState extends State<OrganizationThumbnail> {
   Widget build(BuildContext context) {
     return Padding(padding: const EdgeInsets.only(top: 12, left: 12, right: 12), child: GestureDetector(
       //opens organization info popup when any part of the organization thumbnail is tapped
-      onTap: () => const OrganizationInfo(),
+      onTap: () {
+        currentOrganization = widget.organization.id;
+        showDialog(context: context, builder: (BuildContext context) {
+          return OrganizationInfo(organization: widget.organization);
+        });
+      },
       child: Container(
         height: 72,
         decoration: ShapeDecoration(
@@ -39,7 +44,7 @@ class OrganizationThumbnailState extends State<OrganizationThumbnail> {
             child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
           )),
           Text(
-            widget.organizationName,
+            widget.organization.name,
             style: const TextStyle(
               color: Color(0xFF113143),
               fontSize: 16,

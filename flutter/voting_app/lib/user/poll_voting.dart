@@ -1,16 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:voting_app/answered_question.dart';
+import 'package:voting_app/user/unanswered_question.dart';
+import 'package:voting_app/confirmation_alert.dart';
 import 'package:voting_app/navigation_menu.dart';
 import 'package:voting_app/main.dart';
 
-class PollResults extends StatefulWidget {
-  const PollResults({Key? key}) : super(key: key);
+class PollVoting extends StatefulWidget {
+  const PollVoting({super.key});
 
   @override
-  State<StatefulWidget> createState() => PollResultsState();
+  State<StatefulWidget> createState() => PollVotingState();
 }
 
-class PollResultsState extends State<PollResults> {
+class PollVotingState extends State<PollVoting> {
+  //shows a confirmation alert
+  void _confirmationAlert(BuildContext context) {
+    showDialog(context: context, builder: (BuildContext context) {
+        return const CustomAlertDialog(
+          title: 'Submission Confirmation',
+          content: 'Are you sure you want to submit? Your answers cannot be edited once uploaded!',
+        );
+      },
+    ).then((value) {
+      /*if user taps the cancel button or taps off the popup then its closed and nothing else happens. if the user taps 
+      the confirm button, the app navigates to poll results and shows a popup saying the submission was successful*/
+      if (value != null && value) {
+        testPolls[currentPoll].haveVoted = true;
+        NavigationController().navigateToScreen(navbarIndex: 0);
+        showDialog(context: context, builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Container(
+              padding: const EdgeInsets.only(bottom: 20), 
+              alignment: Alignment.center, 
+              child: const Text('Poll Successfully Submitted!', style: TextStyle(
+                color: Color(0xFF113143),
+                fontSize: 20,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w700,
+              )
+            ))
+          );
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [ 
@@ -20,7 +53,7 @@ class PollResultsState extends State<PollResults> {
           color: const Color(0xFF5AC7F0), 
           child: Column(children: [
             Row(children: [
-              Padding(padding: const EdgeInsets.only(top:40, bottom:12, left:12, right:12), child: Container(
+              Padding(padding: const EdgeInsets.only(top:40, bottom:12, left:12, right: 12), child: Container(
                 width: 57,
                 height: 57,
                 decoration: const BoxDecoration(
@@ -29,17 +62,12 @@ class PollResultsState extends State<PollResults> {
                 ),
                 child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
               )),
-              Expanded(
-                child: Column(
+              Expanded(child: Column(
                 mainAxisAlignment: MainAxisAlignment.center, 
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
-                  Text(
-                    "\n",
-                    style: const TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize:10,
-                    ),
+                  SizedBox(
+                    height: 25
                   ),
                   Text(
                     testPolls[currentPoll].organizationName, 
@@ -83,12 +111,22 @@ class PollResultsState extends State<PollResults> {
         )
       ),
       Expanded(child: ListView.builder(
-          itemCount: testPolls[currentPoll].questions.length,
+          itemCount: testPolls[currentPoll].questions.length + 1,
           itemBuilder: (context, index) {
-            if (index < testPolls[currentPoll].questions.length - 1) {
-              return AnsweredQuestion(questionNumber: index + 1, questionInfo: testPolls[currentPoll].questions[index]);
+            if (index < testPolls[currentPoll].questions.length) {
+              return UnansweredQuestion(questionNumber: index + 1, questionInfo: testPolls[currentPoll].questions[index]);
             } else {
-              return Padding(padding: const EdgeInsets.only(bottom: 12), child: AnsweredQuestion(questionNumber: index + 1, questionInfo: testPolls[currentPoll].questions[index]));
+              return Padding(
+                padding: const EdgeInsets.all(12),
+                child: TextButton(
+                  onPressed: () => _confirmationAlert(context), 
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(const Color(0xFF113143)),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
+                  ),
+                  child: const Text('Submit Poll', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))
+                ),
+              );
             }
           },
       ))

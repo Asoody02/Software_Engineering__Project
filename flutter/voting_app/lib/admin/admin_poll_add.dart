@@ -1,12 +1,14 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:voting_app/admin/poll_add_widgets/admin_question_edit.dart';
+import 'package:voting_app/admin/poll_add_widgets/question_edit.dart';
 import 'package:voting_app/confirmation_alert.dart';
 import 'package:voting_app/navigation_menu.dart';
 
+//for scrolling effect
+
+//end scrolling effect
+
 class AdminPollAdd extends StatefulWidget {
-  AdminPollAdd({super.key});
+  const AdminPollAdd({super.key});
 
   @override
   State<StatefulWidget> createState() => AdminPollAddState();
@@ -14,65 +16,86 @@ class AdminPollAdd extends StatefulWidget {
 
 class AdminPollAddState extends State<AdminPollAdd> {
   int questionNumber = 2;
+  TextEditingController _editTextController = TextEditingController(); //for scrolling functionality
+
+// Initialise a scroll controller.
+  ScrollController _scrollController = ScrollController(); //for scrolling functionality
   final List<Widget> _pollQuestions = [
-    const Padding(padding: EdgeInsets.only(top: 12), child: QuestionEdit(questionNumber: 1, onPressed: null,))
+    const QuestionEdit(questionNumber: 1, onPressed: null,)
   ];
 
-  //adds a question to the _pollQuestions list and refreshes the page
+  // Adds a question to the _pollQuestions list and refreshes the page
   void _addQuestion() {
     final key = UniqueKey();
     setState(() {
       _pollQuestions.add(
-        Padding(key: key, padding: const EdgeInsets.only(top: 12), child: QuestionEdit(questionNumber: questionNumber++, onPressed: () {
-          setState(() {
-            questionNumber--;
-            _pollQuestions.removeWhere((widget) => widget.key == key);
-          });
-        }))
+        Padding(
+          key: key,
+          padding: const EdgeInsets.only(top: 12),
+          child: QuestionEdit(
+            questionNumber: questionNumber++,
+            onPressed: () {
+              setState(() {
+                questionNumber--;
+                _pollQuestions.removeWhere((widget) => widget.key == key);
+              });
+            }
+          )
+        )
       );
     });
   }
 
-  //shows a confirmation alert
+  // Shows a confirmation alert
   void _confirmationAlert(BuildContext context) {
-    showDialog(context: context, builder: (BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
         return const CustomAlertDialog(
           title: 'Upload Confirmation',
           content: 'Are you sure you want to upload? The poll cannot be edited once uploaded!',
         );
       },
     ).then((value) {
-      /*if user taps the cancel button or taps off the popup then its closed and nothing else happens. if the user taps 
-      the confirm button, the app navigates to admin polls page and shows a popup saying the uploading was successful*/
+      /* If user taps the cancel button or taps off the popup then it's closed and nothing else happens. If the user taps 
+      the confirm button, the app navigates to admin polls page and shows a popup saying the uploading was successful */
       if (value != null && value) {
-        NavigationController().navigateToScreen(0);
-        showDialog(context: context, builder: (BuildContext context) {
-          return SimpleDialog(
-            title: Container(
-              padding: const EdgeInsets.only(bottom: 20), 
-              alignment: Alignment.center, 
-              child: const Text('Poll Successfully Uploaded!', style: TextStyle(
-                color: Color(0xFF113143),
-                fontSize: 20,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w700,
+        NavigationController().navigateToScreen(navbarIndex: 0);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return SimpleDialog(
+              title: Container(
+                padding: const EdgeInsets.only(bottom: 20), 
+                alignment: Alignment.center, 
+                child: const Text(
+                  'Poll Successfully Uploaded!',
+                  style: TextStyle(
+                    color: Color(0xFF113143),
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w700,
+                  )
+                )
               )
-            ))
-          );
-        });
+            );
+          }
+        );
       }
     });
   }
-String pollName = ''; // Variable to store poll name
-String pollDescription = ''; // Variable to store poll description
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       SizedBox(
-        height: 192,
+        height: 225,
         child: Container(
           color: const Color(0xFF5AC7F0),
           child: Column(children: [
+            SizedBox( // Top padding
+              height: 20,
+            ),
             Row(children: [
               Padding(padding: const EdgeInsets.all(12), child: Container(
                 width: 57,
@@ -83,12 +106,15 @@ String pollDescription = ''; // Variable to store poll description
                 ),
                 child: const Center(child: Text('org\npic', style: TextStyle(color: Colors.white)))
               )),
-               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              const Column(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                crossAxisAlignment: CrossAxisAlignment.start, 
                 children: [
+                  SizedBox(
+                    height: 10,
+                  ),
                   Text(
-                    'Dirt Diggin Inc.',
+                    'Dirt Diggin Inc.', 
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -97,9 +123,6 @@ String pollDescription = ''; // Variable to store poll description
                     ),
                   ),
                   SizedBox(width: 336, child: TextField(
-                    onChanged: (value) {
-                            pollName = value;
-                          },
                     decoration: InputDecoration(
                       hintText: 'Enter poll name...',
                       prefixIcon: Icon(Icons.edit, color: Color(0xFF113143),)
@@ -113,6 +136,14 @@ String pollDescription = ''; // Variable to store poll description
                   ))
                 ]
               ),
+              Padding(
+                padding: const EdgeInsets.only(left:16 , right: 2),
+                child: IconButton(
+                  // Navigates to first navbar screen when close icon is tapped
+                  onPressed: () => NavigationController().navigateToScreen(navbarIndex: 0),
+                  icon: const Icon(Icons.close, color: Color(0xFF113143))
+                )
+              )
             ]),
             Padding(padding: const EdgeInsets.all(12), child: Container(
               width: double.maxFinite,
@@ -121,12 +152,9 @@ String pollDescription = ''; // Variable to store poll description
                 color: const Color(0xFFC7E7F3),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
-              child:  Padding(
+              child: const Padding(
                 padding: EdgeInsets.only(left: 10, right: 10), 
                 child: TextField(
-                  onChanged: (value) {
-                        pollDescription = value;
-                      },
                   maxLines: null,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -139,25 +167,33 @@ String pollDescription = ''; // Variable to store poll description
           ]),
         )
       ),
-      Expanded(child: ListView(children: [
-        ..._pollQuestions, 
-        Padding(padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12), child: TextButton(
-          onPressed: _addQuestion, 
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
+      Expanded(
+        child: ListView(children: [
+          ..._pollQuestions, 
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+            child: TextButton(
+              onPressed: _addQuestion, 
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(const Color(0xFF5AC7F0)),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
+              ),
+              child: const Text('Add Question', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))
+            )
           ),
-          child: const Text('Add Question', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))
-        )),
-        Padding(padding: const EdgeInsets.only(bottom: 12, left: 12, right: 12), child: TextButton(
-          onPressed: () => _confirmationAlert(context), 
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(const Color(0xFF113143)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12, left: 12, right: 12),
+            child: TextButton(
+              onPressed: () => _confirmationAlert(context), 
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(const Color(0xFF113143)),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
+              ),
+              child: const Text('Upload Poll', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))
+            )
           ),
-          child: const Text('Upload Poll', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700))
-        )),
-      ])),
+        ])
+      ),
     ]);
   }
 }
