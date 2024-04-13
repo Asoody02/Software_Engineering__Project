@@ -22,7 +22,7 @@ class AdminPollsState extends State<AdminPolls> {
         )
       ),
       body:  Column(children: <Widget>[
-        TextField(
+        const TextField(
           decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Search...',

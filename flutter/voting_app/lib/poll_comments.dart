@@ -19,7 +19,7 @@ class PollCommentsState extends State<PollComments> {
             child: Column(children: [
               Row(children: [
                 GestureDetector(
-                  onTap: () => OrganizationInfo(), //calls PollResults()
+                  onTap: () => const OrganizationInfo(), //calls PollResults()
                   child: SizedBox(
                     width: 57,
                     height: 57,

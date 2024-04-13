@@ -43,23 +43,23 @@ class LoginPage extends StatelessWidget {
           TextButton(
             onPressed: () {
               isAdmin = false;
-              Get.to(NavigationMenu());
+              Get.to(const NavigationMenu());
             },
             child: const Text('Login'),
           ),
           TextButton(
             onPressed: () {
               isAdmin = true;
-              Get.to(NavigationMenu());
+              Get.to(const NavigationMenu());
             }, 
-            child: Text('Admin Login')
+            child: const Text('Admin Login')
           ),
           TextButton(
             onPressed: () {
               isAdmin = false;
-              Get.to(NavigationMenu());
+              Get.to(const NavigationMenu());
             },
-            child: Text('User Login'),
+            child: const Text('User Login'),
           )
         ],
       ),

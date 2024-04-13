@@ -55,8 +55,11 @@ class NavigationController extends GetxController {
     final controller = Get.find<NavigationController>();
     controller.currentScreenIndex.value = index;
 
-    if (index > 2) isNavBar = false;
-    else isNavBar = true;
+    if (index > 2) {
+      isNavBar = false;
+    } else {
+      isNavBar = true;
+    }
   }
 
   setScreen() {
