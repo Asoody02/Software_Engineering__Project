@@ -8,7 +8,7 @@ import 'package:voting_app/customTheme.dart';
 //import 'package:voting_app/splashScreen.dart'; we can add this back in last
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
+import 'package:voting_app/notifapi.dart';
 // Global variables
 late bool isAdmin;
 
@@ -64,46 +64,39 @@ final List<Organization> testOrganizations = [
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp( //needed this information to make firebase not null
-    options: FirebaseOptions(
+    options: const FirebaseOptions(
       apiKey: "AIzaSyAwJTIj74xjjkiZrZJ5xSi-2DRXLMsJwQk", 
       appId: "1:838527174327:android:f924bbc6f77659279f2f32", 
       messagingSenderId: "838527174327", //project number
       projectId: "policyvote-688dc")
   );
+  await NotifApi().sendNotif();
   runApp(const Login());
 }
 // ignore: use_key_in_widget_constructors
-class Noti extends StatefulWidget {
-  @override
-  Notif createState() => Notif();
-}
-class Notif extends State<Noti> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-  String? _token;
-  @override
-  void initState() {
-    super.initState();
-    _getToken();
-    _firebaseMessaging.subscribeToTopic('all');
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print("Notification received: ${message.notification?.body}");
-      // Handle the notification
-    });
-  }
-  Future<void> _getToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    setState(() {
-      _token = token;
-    });
-    print('FCM Token: $_token');
-  }
+// class Noti extends StatefulWidget {
+//   @override
+//   Notif createState() => Notif();
+// }
+// class Notif extends State<Noti> {
+//   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+//   @override
+//   void initState() {
+//     super.initState();
+//     //_getToken();
+//     _firebaseMessaging.subscribeToTopic('all');
+//     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+//       print("Notification received: ${message.notification?.body}");
+//       // Handle the notification
+//     });
+//   }
   
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     // TODO: implement build
+//     throw UnimplementedError();
+//   }
+// }
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
